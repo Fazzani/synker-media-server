@@ -1,4 +1,4 @@
-FROM node:8-8-alpine
+FROM node:8-alpine
 LABEL maintainer="synker-team@synker.ovh" \
   description="Media Server Synker suite application" \
   system.dist="linux" multi.name="Synker Media Server"
