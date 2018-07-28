@@ -1,0 +1,21 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+before_install:
+  - docker build -t synker/synker-media-server:latest -t synker/synker-media-server:$TRAVIS_TAG .
+  - docker login -u=$DOCKER_USER -p=$DOCKER_PASS
+  - docker push "synker/synker-media-server"
+branches:
+  only:
+    - /^\d+\.\d+\.\d+$/
+    - master
+notifications: # set notification options
+  email:
+    recipients:
+      - tunisienheni@gmail.com
+    on_success: change
+    on_failure: change
