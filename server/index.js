@@ -1,7 +1,7 @@
 const { NodeMediaServer } = require('node-media-server');
 const logger = require('winston')
-const port_rtmp = process.env.PORT || 1935
-const port = process.env.PORT_RTMP || 8000
+const port = process.env.PORT || 8000
+const port_rtmp = process.env.PORT_RTMP || 1935
 
 const config = {
   rtmp: {
