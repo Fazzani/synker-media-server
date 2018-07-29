@@ -7,7 +7,7 @@ ENV FFMPEG_VERSION=3.3.5
 RUN apk update && \
     apk upgrade && \
     apk add --update ca-certificates && \
-    apk add --no-cache curl \
+    apk add --no-cache curl && \
     apk add gnutls-dev zlib-dev yasm-dev lame-dev libogg-dev \
     x264-dev libvpx-dev libvorbis-dev x265-dev freetype-dev \
     libass-dev libwebp-dev rtmpdump-dev libtheora-dev opus-dev && \
