@@ -16,7 +16,7 @@ class FFmpegService {
          * ffprobe -v quiet -print_format json -show_format -show_streams path
          */
         Logger.log(`Getting info for ${path} video`);
-        return { command : `ffprobe -v quiet -print_format json -show_format -show_streams ${path}`};
+        return { command : `ffprobe -v quiet -print_format json -show_format -show_streams "${path}"`};
     }
 
     /**
