@@ -44,14 +44,12 @@ app.post("/stream", (req, res) => {
  */
 app.post("/shell", (req, res) => {
   Logger.log(req.body.shell.command);
-  var tab = req.body.shell.command.split(' ');
-  var command = tab[0];
-  var args = [];
-  if (tab.length > 1) {
-    args = tab.slice(1);
+  if(req.body.shell.command==undefined || req.body.shell.command ==='')
+  {
+    return "KO";
   }
   console.log(tab, '======', command, args);
-  const child = spawn(command, args, {
+  const child = spawn(req.body.shell.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
     shell: true
