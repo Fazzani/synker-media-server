@@ -64,7 +64,7 @@ app.post("/stream/info", (req, res) => {
  */
 app.post("/stream/live", (req, res) => {
   Logger.log(req.body.stream.url);
-  let result = ffmpegService.LiveCommand(req.body.stream.url);
+  let result = ffmpegService.LiveCommand("\""+req.body.stream.url+"\"");
   const child = spawn(result.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
