@@ -38,7 +38,7 @@
                 url: url,
                 data: form.serialize(), // serializes the form's elements.
                 success: (data) => {
-                    $messages.append("<li>" + data.streamUrl + "</li>")
+                    $messages.append(`<li><a href="${data.streamUrl}">Watch</a></li>`);
                     $messages.append("<li>" + data.command + "</li>")
                 }
             });
