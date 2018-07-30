@@ -12,7 +12,7 @@
 
             var form = $(this).closest('form');
             $messages.empty();
-            
+
             $.ajax({
                 type: "POST",
                 url: '/stream/info',
@@ -36,8 +36,7 @@
             $.ajax({
                 type: "POST",
                 url: url,
-                dataType: 'json',
-                data: JSON.stringify(form.serialize()), // serializes the form's elements.
+                data: form.serialize(), // serializes the form's elements.
                 success: (data) => {
                     $messages.append("<li>" + data.streamUrl + "</li>")
                     $messages.append("<li>" + data.command + "</li>")

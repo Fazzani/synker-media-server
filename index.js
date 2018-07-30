@@ -39,7 +39,7 @@ let ffmpegService = new FFmpegService('rtmp://servermedia.synker.ovh:1935');
 app.post("/stream/info", (req, res) => {
   //Logger.log(req.body.stream.url);
   console.log('body: ' + req.body);
-  let result = ffmpegService.InfoCommand("\""+req.body.stream.url+"\"");
+  let result = ffmpegService.InfoCommand("\"" + req.body.stream.url + "\"");
   const child = spawn(result.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
@@ -64,7 +64,7 @@ app.post("/stream/info", (req, res) => {
  */
 app.post("/stream/live", (req, res) => {
   Logger.log(req.body.stream.url);
-  let result = ffmpegService.LiveCommand("\""+req.body.stream.url+"\"");
+  let result = ffmpegService.LiveCommand("\"" + req.body.stream.url + "\"");
   const child = spawn(result.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
