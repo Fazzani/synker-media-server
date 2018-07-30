@@ -1,0 +1,24 @@
+.selector-for-some-widget {
+    box-sizing: content-box;
+  }
+
+  section {
+    padding: 70px 0;
+    border-bottom: 1px dotted #ccc;
+}
+
+/* So that we can see the grid */
+.grid-example  div[class^="col"] {
+    border: 1px solid white;
+    background: lightblue;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    }
+/* Overide Jumbotron's color */
+.jumbotron {
+background-color: lightskyblue;
+}
+body{
+    background-color: #380000;
+}

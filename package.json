@@ -1,27 +1,36 @@
 {
-    "name": "synker-media-server",
-    "private": true,
-    "version": "0.0.1",
-    "description": "Synker Media server",
-    "scripts": {
-        "start": "node server/index.js",
-        "lint": "eslint server",
-        "test": "echo \"No test in this example\" && exit 0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Fazzani/mediaserver.git"
-    },
-    "author": "Heni Fazzani",
-    "dependencies": {
-        "node-media-server": "1.4.3",
-        "winston": "2.2.0",
-        "winston-gke": "1.0.2"
-    },
-    "devDependencies": {
-        "eslint": "3.0.1",
-        "eslint-config-standard": "5.3.1",
-        "eslint-plugin-promise": "1.3.2",
-        "eslint-plugin-standard": "1.3.2"
-    }
+  "name": "synker-media-server",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Synker Media server",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint server",
+    "test": "echo \"No test in this example\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fazzani/mediaserver.git"
+  },
+  "keywords": [
+    "rtmp",
+    "flv",
+    "server",
+    "synker"
+  ],
+  "author": "Heni Fazzani",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "node-media-server": "^1.4.3",
+    "socket.io": "2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "3.0.1",
+    "eslint-config-standard": "5.3.1",
+    "eslint-plugin-promise": "1.3.2",
+    "eslint-plugin-standard": "1.3.2",
+    "nodemon": "^1.18.3"
+  }
 }
