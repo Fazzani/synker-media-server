@@ -44,22 +44,30 @@ app.post("/stream", (req, res) => {
  */
 app.post("/shell", (req, res) => {
   Logger.log(req.body.shell.command);
-  const child = spawn(req.body.shell.command, {
-    encoding: 'utf8'
+  var tab = req.body.shell.command.split(' ');
+  var command = tab[0];
+  var args = [];
+  if (tab.length > 1) {
+    args = tab.slice(1);
+  }
+  console.log(tab, '======', command, args);
+  const child = spawn(command, args, {
+    encoding: 'utf8',
+    // stdio: 'inherit',
+    shell: true
   });
 
   readline.createInterface({
     input: child.stdout,
     terminal: false
   }).on('line', function (line) {
+    //console.log('line---------: ', line)
     io.sockets.emit("shellResultEvent", line.toString());
   });
 
   child.on('exit', (code, signal) => {
-    console.log('child process exited with ' +
-      `code ${code} and signal ${signal}`);
+    console.log('child process exited with ' + `code ------------${code} and signal ${signal}`);
   });
-  //res.redirect('/');
 });
 
 /**
