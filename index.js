@@ -13,7 +13,7 @@ const {
 
 const port = process.env.PORT || 8000
 const port_rtmp = process.env.PORT_RTMP || 1935
-let SERVER_MEDIA_PORT = process.env.PORT || 8080;
+let SERVER_MEDIA_PORT = process.env.PORT_API || 8084;
 
 var app = express();
 var server = require('http').createServer(app);
