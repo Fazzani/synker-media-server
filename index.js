@@ -3,6 +3,7 @@ const {
 } = require('node-media-server')
 const Logger = require('./server/core/logger')
 let Page = require('./server/models/page')
+let FFmpegService = require('./server/models/ffmpeg')
 var express = require('express');
 var readline = require('readline');
 var path = require('path');
@@ -31,12 +32,57 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 Logger.setLogType(Logger.LOG_TYPES.FFDEBUG);
 
+let ffmpegService = new FFmpegService('rtmp://servermedia.synker.ovh:1935');
 /**
- * stream
+ * stream infos
  */
-app.post("/stream", (req, res) => {
+app.post("/stream/info", (req, res) => {
+  //Logger.log(req.body.stream.url);
+  console.log('body: ' + req.body);
+  let result = ffmpegService.InfoCommand("\""+req.body.stream.url+"\"");
+  const child = spawn(result.command, {
+    encoding: 'utf8',
+    // stdio: 'inherit',
+    shell: true
+  });
+
+  readline.createInterface({
+    input: child.stdout,
+    terminal: false
+  }).on('line', function (line) {
+    //console.log('line---------: ', line)
+    io.sockets.emit("shellResultEvent", line.toString());
+  });
+
+  child.on('exit', (code, signal) => {
+    console.log('child process exited with ' + `code ------------${code} and signal ${signal}`);
+  });
+  res.send(result);
+});
+/**
+ * play stream
+ */
+app.post("/stream/live", (req, res) => {
   Logger.log(req.body.stream.url);
-  res.redirect('/');
+  let result = ffmpegService.LiveCommand(req.body.stream.url);
+  const child = spawn(result.command, {
+    encoding: 'utf8',
+    // stdio: 'inherit',
+    shell: true
+  });
+
+  readline.createInterface({
+    input: child.stdout,
+    terminal: false
+  }).on('line', function (line) {
+    //console.log('line---------: ', line)
+    io.sockets.emit("shellResultEvent", line.toString());
+  });
+
+  child.on('exit', (code, signal) => {
+    console.log('child process exited with ' + `code ------------${code} and signal ${signal}`);
+  });
+  res.send(result);
 });
 
 /**
@@ -44,11 +90,9 @@ app.post("/stream", (req, res) => {
  */
 app.post("/shell", (req, res) => {
   Logger.log(req.body.shell.command);
-  if(req.body.shell.command==undefined || req.body.shell.command ==='')
-  {
+  if (req.body.shell.command == undefined || req.body.shell.command === '') {
     return "KO";
   }
-  console.log(tab, '======', command, args);
   const child = spawn(req.body.shell.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
