@@ -17,6 +17,10 @@ const port = process.env.PORT || 8000
 const port_rtmp = process.env.PORT_RTMP || 1935
 let SERVER_MEDIA_PORT = process.env.PORT_API || 8084;
 
+/** 
+ * App config
+*/
+Logger.setLogType(Logger.LOG_TYPES.FFDEBUG);
 var app = express();
 app.use(cors())
 var server = require('http').createServer(app);
@@ -24,6 +28,10 @@ var io = require('socket.io')(server);
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.set('port', port);
+app.set('port_rtmp', port_rtmp);
+app.set('SERVER_MEDIA_PORT', SERVER_MEDIA_PORT);
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.static(__dirname))
@@ -32,9 +40,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-Logger.setLogType(Logger.LOG_TYPES.FFDEBUG);
 
 let ffmpegService = new FFmpegService('rtmp://servermedia.synker.ovh:1935');
+
 /**
  * stream infos
  */
@@ -61,6 +69,7 @@ app.post("/stream/info", (req, res) => {
   });
   res.send(result);
 });
+
 /**
  * play stream
  */
@@ -164,6 +173,9 @@ process.on('SIGTERM', () => {
 
 nms.run();
 
+/** 
+ * Errors handler
+*/
 app.use((req, res, next) => {
   // res.setHeader('Content-Type', 'text/plain');
   // res.status(404).send('Page introuvable !');
@@ -173,7 +185,10 @@ app.use((req, res, next) => {
   });
 });
 
-server.listen(SERVER_MEDIA_PORT);
+server.listen(SERVER_MEDIA_PORT, () => {
+  Logger.log('Media Server listening on port ' + SERVER_MEDIA_PORT);
+});
+
 /**
  * sockets
  */
