@@ -6,10 +6,9 @@ LABEL maintainer="synker-team@synker.ovh" \
 ENV FFMPEG_VERSION=3.3.5                                                                                              
 RUN apk update && \                                                                                                   
     apk upgrade && \                                                                                                  
-    apk add --update ca-certificates && \                                                                             
-    apk add --no-cache curl && \                                                                                      
-    apk add gnutls-dev zlib-dev yasm-dev lame-dev libogg-dev \                                                        
-    x264-dev libvpx-dev libvorbis-dev x265-dev freetype-dev \                                                         
+    apk add --update ca-certificates && \  
+    apk add gnutls-dev zlib-dev yasm-dev lame-dev libogg-dev gpac flvmeta \                                                        
+    x264-dev libvpx-dev libvorbis-dev x265-dev freetype-dev curl \                                                         
     libass-dev libwebp-dev rtmpdump-dev libtheora-dev opus-dev && \                                                   
     apk add --no-cache --virtual .build-dependencies \                                                                
     build-base coreutils tar bzip2 x264 gnutls nasm && \                                                              
