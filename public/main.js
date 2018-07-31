@@ -4,10 +4,26 @@ $(() => {
 
     $('[data-toggle="popover"]').popover();
 
+    $('#play').click(function () {
+        console.log('playing video');
+        if (flvjs.isSupported()) {
+            console.log('flvjs is supported by this browser!!');
+            var videoElement = document.getElementById('videoElement');
+            var flvPlayer = flvjs.createPlayer({
+                "type": "flv",
+                "isLive": true,
+                "url": "http://servermedia.synker.ovh/live/testxxxx.flv"
+            });
+            flvPlayer.attachMediaElement(videoElement);
+            flvPlayer.load();
+            flvPlayer.play();
+        }
+    })
+
     /**
      * Stream info
      */
-    $('#info-stream-btn').click(function(e) {
+    $('#info-stream-btn').click(function (e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this).closest('form');
