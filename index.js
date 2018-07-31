@@ -19,7 +19,7 @@ let SERVER_MEDIA_PORT = process.env.PORT_API || 8084;
 
 /** 
  * App config
-*/
+ */
 Logger.setLogType(Logger.LOG_TYPES.FFDEBUG);
 var app = express();
 app.use(cors())
@@ -75,7 +75,14 @@ app.post("/stream/info", (req, res) => {
  */
 app.post("/stream/live", (req, res) => {
   Logger.log(req.body.stream.url);
-  let result = ffmpegService.LiveCommand(req.body.stream.url);
+  let audio_codec = req.body.stream.audio_codec === undefined ? 'mp3' : req.body.stream.audio_codec;
+  let video_size = req.body.stream.video_size === undefined ? '640x480' : req.body.stream.video_size;
+  let format = req.body.stream.format === undefined ? 'flv' : req.body.stream.format;
+  let audio_bitrate = req.body.stream.audio_bitrate === undefined ? '56k' : req.body.stream.audio_bitrate;
+  let video_bitrate = req.body.stream.video_bitrate === undefined ? '400k' : req.body.stream.video_bitrate;
+  let audio_resolution = req.body.stream.audio_resolution === undefined ? '22050' : req.body.stream.audio_resolution;
+
+  let result = ffmpegService.LiveCommand(req.body.stream.url, audio_codec, video_size, format, audio_bitrate, video_bitrate, audio_resolution);
   const child = spawn(result.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
@@ -175,7 +182,7 @@ nms.run();
 
 /** 
  * Errors handler
-*/
+ */
 app.use((req, res, next) => {
   // res.setHeader('Content-Type', 'text/plain');
   // res.status(404).send('Page introuvable !');
