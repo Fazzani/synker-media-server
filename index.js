@@ -3,6 +3,7 @@ const {
 } = require('node-media-server')
 const Logger = require('./server/core/logger')
 let Page = require('./server/models/page')
+var cors = require('cors')
 let FFmpegService = require('./server/models/ffmpeg')
 var express = require('express');
 var readline = require('readline');
@@ -17,6 +18,7 @@ const port_rtmp = process.env.PORT_RTMP || 1935
 let SERVER_MEDIA_PORT = process.env.PORT_API || 8084;
 
 var app = express();
+app.use(cors())
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
