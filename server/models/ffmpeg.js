@@ -4,6 +4,7 @@ var FfmpegCommand = require('fluent-ffmpeg');
 class FFmpegService {
 
     constructor(io, liveServerUrl) {
+
         this.io = io;
         this.liveServerUrl = liveServerUrl;
     }
@@ -35,16 +36,16 @@ class FFmpegService {
      * @returns
      * @memberof FFmpegService
      */
-    LiveCommand(path, audio_codec = 'mp3', videoSize = '640x480', format = 'flv', audio_bitrate = '56k', video_bitrate = '400k', audio_resolution = '22050') {
+    LiveCommand(path, audio_codec = 'mp3', videoSize = '640x480', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset='veryfast') {
         let streamId = Math.random().toString(26).slice(2);
-
+        let $io = this.io;
         var command = new FfmpegCommand(path)
             .addOption('-acodec', 'aac')
             //.addOption('-b:v', '800k') -preset veryfast -maxrate 1984k -bufsize 3968k
-            .addOption('-preset', 'veryfast')
+            .addOption('-preset', perset)
             .addOption('-maxrate', '3000k')
             .addOption('-tune', 'zerolatency')
-            .addOption('-b:a', '128k')
+            .addOption('-b:a', audio_bitrate)
             .addOption('-g', '50')
             .inputOptions('-re')
             .inputOptions('-r 25')
@@ -52,14 +53,14 @@ class FFmpegService {
             .aspect('4:3')
             .videoCodec('libx264')
             .audioCodec('copy')
-            .format('flv')
+            .format(format)
             .on('start', function (commandLine) {
                 Logger.log('Spawned Ffmpeg with command: ' + commandLine);
             }).on('codecData', function (data) {
                 Logger.log('Input is ' + data.audio + ' audio ' + 'with ' + data.video + ' video');
             }).on('progress', function (progress) {
                 Logger.log('Processing: ' + progress.percent + '% done');
-                this.io.sockets.emit("shellResultEvent", 'Processing: ' + progress.percent + '% done');
+                $io.sockets.emit("shellResultEvent", 'Processing: ' + progress.percent + '% done');
             }).on('stderr', function (stderrLine) {
                 Logger.log('Stderr output: ' + stderrLine);
             }).on('end', function (stdout, stderr) {
