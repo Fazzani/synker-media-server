@@ -3,7 +3,7 @@ LABEL maintainer="synker-team@synker.ovh" \
       description="Media Server Synker suite application. this image contain nodejs and ffmpeg" \                     
       system.dist="linux" multi.name="Synker Media Server"                                                            
                                                                                                                       
-ENV FFMPEG_VERSION=3.3.5                                                                                              
+ENV FFMPEG_VERSION=3.4.4                                                                                             
 RUN apk update && \                                                                                                   
     apk upgrade && \                                                                                                  
     apk add --update ca-certificates && \  
