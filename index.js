@@ -76,7 +76,7 @@ app.post("/stream/info", (req, res) => {
  */
 app.post("/stream/live", (req, res) => {
   Logger.log(req.body.stream.url);
-  let audio_codec = req.body.stream.audio_codec === undefined ? 'mp3' : req.body.stream.audio_codec;
+  let audio_codec = req.body.stream.audio_codec === undefined ? 'copy' : req.body.stream.audio_codec;
   let video_size = req.body.stream.video_size === undefined ? '640x480' : req.body.stream.video_size;
   let format = req.body.stream.format === undefined ? 'flv' : req.body.stream.format;
   let audio_bitrate = req.body.stream.audio_bitrate === undefined ? '56k' : req.body.stream.audio_bitrate;

@@ -40,11 +40,12 @@ class FFmpegService {
      * @returns
      * @memberof FFmpegService
      */
-    LiveCommand(path, audio_codec = 'aac', video_codec = 'libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
+    LiveCommand(path, audio_codec = 'copy', video_codec = 'libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
         let streamId = Math.random().toString(26).slice(2);
+        
         let $io = this.io;
         var command = new FfmpegCommand(path)
-            .addOption('-acodec', audio_codec)
+            //.addOption('-acodec', audio_codec)
             //.addOption('-b:v', '800k') -preset veryfast -maxrate 1984k -bufsize 3968k
             .addOption('-preset', perset)
             .addOption('-maxrate', maxrate)
@@ -56,7 +57,7 @@ class FFmpegService {
             .size(videoSize)
             .aspect(aspect)
             .videoCodec(video_codec)
-            .audioCodec('copy')
+            .audioCodec(audio_codec)
             .format(format)
             .on('start', function (commandLine) {
                 Logger.log('Spawned Ffmpeg with command: ' + commandLine);
