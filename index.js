@@ -9,8 +9,6 @@ var express = require('express');
 var readline = require('readline');
 var path = require('path');
 const bodyParser = require("body-parser");
-var FfmpegCommand = require('fluent-ffmpeg');
-var fs = require('fs');
 const {
   spawn
 } = require('child_process');
@@ -43,7 +41,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-let ffmpegService = new FFmpegService('rtmp://servermedia.synker.ovh:1935');
+let ffmpegService = new FFmpegService(io, 'rtmp://servermedia.synker.ovh:1935');
 
 /**
  * stream infos
@@ -85,54 +83,9 @@ app.post("/stream/live", (req, res) => {
   let video_bitrate = req.body.stream.video_bitrate === undefined ? '400k' : req.body.stream.video_bitrate;
   let audio_resolution = req.body.stream.audio_resolution === undefined ? '22050' : req.body.stream.audio_resolution;
 
-  // let result = ffmpegService.LiveCommand(req.body.stream.url, audio_codec, video_size, format, audio_bitrate, video_bitrate, audio_resolution);
+  let command = ffmpegService.LiveCommand(req.body.stream.url, audio_codec, video_size, format, audio_bitrate, video_bitrate, audio_resolution);
 
-  var command = new FfmpegCommand(req.body.stream.url)
-    .addOption('-acodec', 'aac')
-    //.addOption('-b:v', '800k') -preset veryfast -maxrate 1984k -bufsize 3968k
-    .addOption('-preset','veryfast')
-    .addOption('-maxrate','3000k')
-    .addOption('-maxrate','3000k')
-    .addOption('-tune', 'zerolatency')
-    .addOption('-b:a','128k') 
-    .addOption('-g', '50')
-    .inputOptions('-re')
-    .inputOptions('-r 25')
-    .size('640x?').aspect('4:3')
-    .videoCodec('libx264')
-    .audioCodec('copy')
-    .format('flv')
-    .on('start', function (commandLine) {
-      Logger.log('Spawned Ffmpeg with command: ' + commandLine);
-    }).on('codecData', function (data) {
-      Logger.log('Input is ' + data.audio + ' audio ' + 'with ' + data.video + ' video');
-    }).on('progress', function (progress) {
-      Logger.log('Processing: ' + progress.percent + '% done');
-      io.sockets.emit("shellResultEvent", 'Processing: ' + progress.percent + '% done');
-    }).on('stderr', function (stderrLine) {
-      Logger.log('Stderr output: ' + stderrLine);
-    }).on('end', function (stdout, stderr) {
-      Logger.log('Transcoding succeeded !');
-    }).save('rtmp://servermedia.synker.ovh:1935/live/testxxxx live=true');
-
-  // const child = spawn(result.command, {
-  //   encoding: 'utf8',
-  //   // stdio: 'inherit',
-  //   shell: true
-  // });
-
-  // readline.createInterface({
-  //   input: child.stdout,
-  //   terminal: false
-  // }).on('line', function (line) {
-  //   //console.log('line---------: ', line)
-  //   io.sockets.emit("shellResultEvent", line.toString());
-  // });
-
-  // child.on('exit', (code, signal) => {
-  //   console.log('child process exited with ' + `code ------------${code} and signal ${signal}`);
-  // });
-  res.send('ok');
+  res.send(command);
 });
 
 /**

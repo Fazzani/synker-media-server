@@ -1,9 +1,10 @@
 const Logger = require('../core/logger')
+var FfmpegCommand = require('fluent-ffmpeg');
 
 class FFmpegService {
 
-
-    constructor(liveServerUrl) {
+    constructor(io, liveServerUrl) {
+        this.io = io;
         this.liveServerUrl = liveServerUrl;
     }
 
@@ -22,21 +23,50 @@ class FFmpegService {
     }
 
     /**
-     * Get Live Command
-     * @param {video path} path 
-     * @param {audio codec} audio_codec 
-     * @param {video size} videoSize 
-     * @param {video format} format 
-     * @param {video bitrate} video_bitrate
-     * @param {audio bitrate} audio_bitrate
-     * @param {audio resolution} audio_resolution
+     * Get live command
+     *
+     * @param {string} path
+     * @param {string} [audio_codec='mp3']
+     * @param {string} [videoSize='640x480']
+     * @param {string} [format='flv']
+     * @param {string} [audio_bitrate='56k']
+     * @param {string} [video_bitrate='400k']
+     * @param {string} [audio_resolution='22050']
+     * @returns
+     * @memberof FFmpegService
      */
     LiveCommand(path, audio_codec = 'mp3', videoSize = '640x480', format = 'flv', audio_bitrate = '56k', video_bitrate = '400k', audio_resolution = '22050') {
-        /**
-         * ffprobe -v quiet -print_format json -show_format -show_streams path
-         */
-        Logger.log(`Getting live info for ${path} video`);
         let streamId = Math.random().toString(26).slice(2);
+
+        var command = new FfmpegCommand(path)
+            .addOption('-acodec', 'aac')
+            //.addOption('-b:v', '800k') -preset veryfast -maxrate 1984k -bufsize 3968k
+            .addOption('-preset', 'veryfast')
+            .addOption('-maxrate', '3000k')
+            .addOption('-tune', 'zerolatency')
+            .addOption('-b:a', '128k')
+            .addOption('-g', '50')
+            .inputOptions('-re')
+            .inputOptions('-r 25')
+            .size('640x?')
+            .aspect('4:3')
+            .videoCodec('libx264')
+            .audioCodec('copy')
+            .format('flv')
+            .on('start', function (commandLine) {
+                Logger.log('Spawned Ffmpeg with command: ' + commandLine);
+            }).on('codecData', function (data) {
+                Logger.log('Input is ' + data.audio + ' audio ' + 'with ' + data.video + ' video');
+            }).on('progress', function (progress) {
+                Logger.log('Processing: ' + progress.percent + '% done');
+                this.io.sockets.emit("shellResultEvent", 'Processing: ' + progress.percent + '% done');
+            }).on('stderr', function (stderrLine) {
+                Logger.log('Stderr output: ' + stderrLine);
+            }).on('end', function (stdout, stderr) {
+                Logger.log('Transcoding succeeded !');
+            }).save(`${this.liveServerUrl}/live/${streamId}`);
+
+        Logger.log('command', command);
         return {
             streamUrl: `${this.liveServerUrl}/live/${streamId}`,
             command: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveServerUrl}/live/${streamId} live=1"`
