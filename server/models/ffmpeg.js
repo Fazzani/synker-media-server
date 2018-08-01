@@ -40,7 +40,7 @@ class FFmpegService {
      * @returns
      * @memberof FFmpegService
      */
-    LiveCommand(path, audio_codec = 'mp3',video_codec='libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
+    LiveCommand(path, audio_codec = 'mp3', video_codec = 'libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
         let streamId = Math.random().toString(26).slice(2);
         let $io = this.io;
         var command = new FfmpegCommand(path)
