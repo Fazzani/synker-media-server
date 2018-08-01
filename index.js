@@ -83,7 +83,7 @@ app.post("/stream/live", (req, res) => {
   let video_bitrate = req.body.stream.video_bitrate === undefined ? '400k' : req.body.stream.video_bitrate;
   let audio_resolution = req.body.stream.audio_resolution === undefined ? '22050' : req.body.stream.audio_resolution;
 
-  let command = ffmpegService.LiveCommand(req.body.stream.url, audio_codec, video_size, format, audio_bitrate, video_bitrate, audio_resolution);
+  let command = ffmpegService.LiveCommand(req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
 
   res.send(command);
 });

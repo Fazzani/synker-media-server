@@ -28,30 +28,34 @@ class FFmpegService {
      *
      * @param {string} path
      * @param {string} [audio_codec='mp3']
+     * @param {string} [video_codec='libx264']
      * @param {string} [videoSize='640x480']
      * @param {string} [format='flv']
      * @param {string} [audio_bitrate='56k']
      * @param {string} [video_bitrate='400k']
      * @param {string} [audio_resolution='22050']
+     * @param {string} [perset='veryfast']
+     * @param {string} [aspect='4:3']
+     * @param {string} [maxrate='3000k']
      * @returns
      * @memberof FFmpegService
      */
-    LiveCommand(path, audio_codec = 'mp3', videoSize = '640x480', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset='veryfast') {
+    LiveCommand(path, audio_codec = 'mp3',video_codec='libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
         let streamId = Math.random().toString(26).slice(2);
         let $io = this.io;
         var command = new FfmpegCommand(path)
             .addOption('-acodec', 'aac')
             //.addOption('-b:v', '800k') -preset veryfast -maxrate 1984k -bufsize 3968k
             .addOption('-preset', perset)
-            .addOption('-maxrate', '3000k')
+            .addOption('-maxrate', maxrate)
             .addOption('-tune', 'zerolatency')
             .addOption('-b:a', audio_bitrate)
             .addOption('-g', '50')
             .inputOptions('-re')
             .inputOptions('-r 25')
-            .size('640x?')
-            .aspect('4:3')
-            .videoCodec('libx264')
+            .size(videoSize)
+            .aspect(aspect)
+            .videoCodec(video_codec)
             .audioCodec('copy')
             .format(format)
             .on('start', function (commandLine) {
