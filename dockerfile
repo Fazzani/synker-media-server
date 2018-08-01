@@ -1,4 +1,4 @@
-FROM synker/nodejs-ffmpeg:8-alpine
+FROM synker/nodejs-ffmpeg:latest
 LABEL maintainer="synker-team@synker.ovh" \
       description="Media Server Synker suite application. this image contain nodejs and ffmpeg" \
       system.dist="linux" multi.name="Synker Media Server"
