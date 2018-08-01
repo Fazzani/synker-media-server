@@ -9,6 +9,7 @@ script: |
   docker build -t synker/synker-media-server:latest -t synker/synker-media-server:0.0.$TRAVIS_BUILD_NUMBER -f dockerfile . && \
   docker login -u=$DOCKER_USER -p=$DOCKER_PASS && \
   docker push "synker/synker-media-server"
+  ./trigger-build.sh "Fazzani/synker-docker"
 branches:
   only:
     - /^\d+\.\d+\.\d+$/
