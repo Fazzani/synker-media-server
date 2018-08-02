@@ -40,12 +40,12 @@ class FFmpegService {
      * @returns
      * @memberof FFmpegService
      */
-    LiveCommand(path, audio_codec = 'copy', video_codec = 'libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
-        let streamId = Math.random().toString(26).slice(2);
-        
+    LiveCommand(streamId, path, audio_codec = 'aac', video_codec = 'libx264', videoSize = '640x?', format = 'flv', audio_bitrate = '128k', video_bitrate = '400k', audio_resolution = '22050', perset = 'veryfast', aspect = '4:3', maxrate = '3000k') {
+        let sId = streamId == undefined ? Math.random().toString(26).slice(2) : streamId;
+
         let $io = this.io;
         var command = new FfmpegCommand(path)
-            //.addOption('-acodec', audio_codec)
+            // .addOption('-acodec', audio_codec)
             //.addOption('-b:v', '800k') -preset veryfast -maxrate 1984k -bufsize 3968k
             .addOption('-preset', perset)
             .addOption('-maxrate', maxrate)
@@ -57,7 +57,7 @@ class FFmpegService {
             .size(videoSize)
             .aspect(aspect)
             .videoCodec(video_codec)
-            .audioCodec(audio_codec)
+            .audioCodec('copy')
             .format(format)
             .on('start', function (commandLine) {
                 Logger.log('Spawned Ffmpeg with command: ' + commandLine);
@@ -70,12 +70,13 @@ class FFmpegService {
                 Logger.log('Stderr output: ' + stderrLine);
             }).on('end', function (stdout, stderr) {
                 Logger.log('Transcoding succeeded !');
-            }).save(`${this.liveServerUrl}/live/${streamId}`);
+            }).save(`${this.liveServerUrl}/live/${sId}`);
 
         Logger.log('command', command);
         return {
-            streamUrl: `${this.liveServerUrl}/live/${streamId}`,
-            command: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveServerUrl}/live/${streamId} live=1"`
+            streamUrl: `${this.liveServerUrl}/live/${sId}`,
+            commandline: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveServerUrl}/live/${streamId} live=1"`,
+            command: command
         };
     }
 }

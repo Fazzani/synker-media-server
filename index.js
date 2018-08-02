@@ -41,7 +41,15 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-let ffmpegService = new FFmpegService(io, 'rtmp://servermedia.synker.ovh:1935');
+let ffmpegService = new FFmpegService(io, 'rtmp://localhost:1935');
+
+app.get("/api/streams", (req, res) => {
+  res.redirect(`//localhost:${port}/api/streams`);
+});
+
+app.get("/api/server", (req, res) => {
+  res.redirect(`//localhost:${port}/api/server`);
+});
 
 /**
  * stream infos
@@ -75,7 +83,11 @@ app.post("/stream/info", (req, res) => {
  * play stream
  */
 app.post("/stream/live", (req, res) => {
+
+  //TODO: Déduplication des demandes
+
   Logger.log(req.body.stream.url);
+  Logger.log(req.body.stream.streamId);
   let audio_codec = req.body.stream.audio_codec === undefined ? 'copy' : req.body.stream.audio_codec;
   let video_size = req.body.stream.video_size === undefined ? '640x480' : req.body.stream.video_size;
   let format = req.body.stream.format === undefined ? 'flv' : req.body.stream.format;
@@ -83,9 +95,9 @@ app.post("/stream/live", (req, res) => {
   let video_bitrate = req.body.stream.video_bitrate === undefined ? '400k' : req.body.stream.video_bitrate;
   let audio_resolution = req.body.stream.audio_resolution === undefined ? '22050' : req.body.stream.audio_resolution;
 
-  let command = ffmpegService.LiveCommand(req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
+  let command = ffmpegService.LiveCommand(req.body.stream.streamId, req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
 
-  res.send(command);
+  res.send(res.json(command));
 });
 
 /**

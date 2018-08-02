@@ -12,7 +12,7 @@ $(() => {
             var flvPlayer = flvjs.createPlayer({
                 "type": "flv",
                 "isLive": true,
-                "url": "http://servermedia.synker.ovh/live/testxxxx.flv"
+                "url": document.getElementById('sURL').nodeValue
             });
             flvPlayer.attachMediaElement(videoElement);
             flvPlayer.load();
@@ -55,7 +55,7 @@ $(() => {
             data: form.serialize(), // serializes the form's elements.
             success: (data) => {
                 $messages.append(`<li><a href="${data.streamUrl}">Watch</a></li>`);
-                $messages.append("<li>" + data.command + "</li>")
+                $messages.append("<li>" + data.commandline + "</li>")
             }
         });
     });
