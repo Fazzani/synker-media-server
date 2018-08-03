@@ -12,7 +12,8 @@ var Logger = require('./server/core/logger'),
   express = require('express'),
   readline = require('readline'),
   path = require('path'),
-  bodyParser = require("body-parser");
+  http = require('http');
+bodyParser = require("body-parser");
 
 const port = process.env.PORT || 8000
 const port_rtmp = process.env.PORT_RTMP || 1935
@@ -23,7 +24,7 @@ let SERVER_MEDIA_PORT = process.env.PORT_API || 8084;
  */
 Logger.setLogType(Logger.LOG_TYPES.FFDEBUG);
 var app = express();
-app.use(cors())
+app.use(cors());
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
@@ -42,20 +43,38 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-const ffmpegService = new FFmpegService(io, 'rtmp://localhost:1935');
+const ffmpegService = new FFmpegService(io, `rtmp://localhost:${port_rtmp}`);
 
 /**
  * Redirection to api streams
  */
 app.get("/api/streams", (req, res) => {
-  res.redirect(`//localhost:${port}/api/streams`);
+  http.get(`http://localhost:${port}/api/streams`, resp => {
+    let data = '';
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+      data += chunk;
+    });
+    resp.on('end', () => {
+      res.send(data);
+    });
+  });
 });
 
 /**
  * Redirection to api server
  */
 app.get("/api/server", (req, res) => {
-  res.redirect(`//localhost:${port}/api/server`);
+  http.get(`http://localhost:${port}/api/server`, resp => {
+    let data = '';
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+      data += chunk;
+    });
+    resp.on('end', () => {
+      res.send(data);
+    });
+  });
 });
 
 /**
