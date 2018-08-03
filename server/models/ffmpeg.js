@@ -87,7 +87,8 @@ class FFmpegService {
             commandline: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveRtmpUrl}/live/${streamId} live=1"`,
             //command: command,
             streamId: sId,
-            streamUrlFlv : `${this.livehttpUrl}/live/${sId}.flv`
+            streamUrlFlv : `${this.livehttpUrl}/live/${sId}.flv`,
+            streamUrlHls : `${this.livehttpUrl}/live/${sId}.m3u8`
         };
     }
 }
