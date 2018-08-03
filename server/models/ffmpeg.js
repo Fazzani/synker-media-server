@@ -2,9 +2,10 @@ const Logger = require('../core/logger')
 var FfmpegCommand = require('fluent-ffmpeg');
 class FFmpegService {
 
-    constructor(io, liveServerUrl) {
+    constructor(io, liveRtmpUrl, livehttpUrl) {
         this.io = io;
-        this.liveServerUrl = liveServerUrl;
+        this.liveRtmpUrl = liveRtmpUrl;
+        this.livehttpUrl = livehttpUrl;
         this.commands = {};
     }
 
@@ -76,16 +77,17 @@ class FFmpegService {
                 Logger.log('Stderr output: ' + stderrLine);
             }).on('end', function (stdout, stderr) {
                 Logger.log('Transcoding succeeded !');
-            }).save(`${this.liveServerUrl}/live/${sId}`);
+            }).save(`${this.liveRtmpUrl}/live/${sId}`);
 
         Logger.log('command', command._currentOutput.target);
         this.commands[sId] = command;
 
         return {
-            streamUrl: `${this.liveServerUrl}/live/${sId}`,
-            commandline: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveServerUrl}/live/${streamId} live=1"`,
+            streamUrl: `${this.liveRtmpUrl}/live/${sId}`,
+            commandline: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveRtmpUrl}/live/${streamId} live=1"`,
             //command: command,
-            streamId: sId
+            streamId: sId,
+            streamUrlFlv : `${this.livehttpUrl}/live/${sId}.flv`
         };
     }
 }

@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-const ffmpegService = new FFmpegService(io, `rtmp://localhost:${port_rtmp}`);
+const ffmpegService = new FFmpegService(io, `rtmp://localhost:${port_rtmp}`, `http://localhost:${port}`);
 
 /**
  * Redirection to api streams

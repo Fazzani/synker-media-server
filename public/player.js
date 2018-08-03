@@ -1,5 +1,6 @@
 var checkBoxFields = ['isLive', 'withCredentials', 'hasAudio', 'hasVideo'];
 var streamURL, mediaSourceURL;
+
 function flv_load() {
     console.log('isSupported: ' + flvjs.isSupported());
     if (mediaSourceURL.className === '') {
@@ -28,6 +29,7 @@ function flv_load() {
         flv_load_mds(mediaDataSource);
     }
 }
+
 function flv_load_mds(mediaDataSource) {
     var element = document.getElementsByName('videoElement')[0];
     if (typeof player !== "undefined") {
@@ -39,19 +41,22 @@ function flv_load_mds(mediaDataSource) {
         }
     }
     player = flvjs.createPlayer(mediaDataSource, {
-        enableWorker: false,
+        enableWorker: true,
         lazyLoadMaxDuration: 3 * 60,
         seekType: 'range',
     });
     player.attachMediaElement(element);
     player.load();
 }
+
 function flv_start() {
     player.play();
 }
+
 function flv_pause() {
     player.pause();
 }
+
 function flv_destroy() {
     player.pause();
     player.unload();
@@ -59,20 +64,24 @@ function flv_destroy() {
     player.destroy();
     player = null;
 }
+
 function flv_seekto() {
     var input = document.getElementsByName('seekpoint')[0];
     player.currentTime = parseFloat(input.value);
 }
+
 function switch_url() {
     streamURL.className = '';
     mediaSourceURL.className = 'hidden';
     saveSettings();
 }
+
 function switch_mds() {
     streamURL.className = 'hidden';
     mediaSourceURL.className = '';
     saveSettings();
 }
+
 function ls_get(key, def) {
     try {
         var ret = localStorage.getItem('flvjs_demo.' + key);
@@ -83,11 +92,13 @@ function ls_get(key, def) {
     } catch (e) {}
     return def;
 }
+
 function ls_set(key, value) {
     try {
         localStorage.setItem('flvjs_demo.' + key, value);
     } catch (e) {}
 }
+
 function saveSettings() {
     if (mediaSourceURL.className === '') {
         ls_set('inputMode', 'MediaDataSource');
@@ -107,6 +118,7 @@ function saveSettings() {
     ls_set('sURL', sURL.value);
     console.log('save');
 }
+
 function loadSettings() {
     var i;
     for (i = 0; i < checkBoxFields.length; i++) {
@@ -126,19 +138,24 @@ function loadSettings() {
         switch_mds();
     }
 }
+
 function showVersion() {
     var version = flvjs.version;
     document.title = document.title + " (v" + version + ")";
 }
 var logcatbox = document.getElementsByName('logcatbox')[0];
-flvjs.LoggingControl.addLogListener(function(type, str) {
+flvjs.LoggingControl.addLogListener(function (type, str) {
     logcatbox.value = logcatbox.value + str + '\n';
     logcatbox.scrollTop = logcatbox.scrollHeight;
 });
-document.addEventListener('DOMContentLoaded', function () {
+
+$(() => {
     streamURL = document.getElementById('streamURL');
     mediaSourceURL = document.getElementById('mediaSourceURL');
     loadSettings();
     showVersion();
-    flv_load();
+    $('#sURL').change(function () {
+        console.log('input changed to: ', $(this).val());
+        flv_load();
+    });
 });

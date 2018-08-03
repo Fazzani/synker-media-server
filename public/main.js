@@ -1,24 +1,19 @@
 $(() => {
+
+    $.ajax({
+        type: "GET",
+        url: '/api/streams',
+        success: (data) => {
+            if (data && data.live) {
+                $messages.append(`<li> ${data.live}</li>`);
+            }
+        }
+    });
+
     let $messages = $('#messages');
     $('[data-toggle="tooltip"]').tooltip();
 
     $('[data-toggle="popover"]').popover();
-
-    $('#play').click(function () {
-        console.log('playing video');
-        if (flvjs.isSupported()) {
-            console.log('flvjs is supported by this browser!!');
-            var videoElement = document.getElementById('videoElement');
-            var flvPlayer = flvjs.createPlayer({
-                "type": "flv",
-                "isLive": true,
-                "url": document.getElementById('sURL').nodeValue
-            });
-            flvPlayer.attachMediaElement(videoElement);
-            flvPlayer.load();
-            flvPlayer.play();
-        }
-    })
 
     /**
      * Stream info
@@ -54,6 +49,7 @@ $(() => {
             url: url,
             data: form.serialize(), // serializes the form's elements.
             success: (data) => {
+                $("#sURL").val(data.streamUrlFlv).trigger("change", data.streamUrlFlv);
                 $messages.append(`<li><a href="${data.streamUrl}">Watch</a></li>`);
                 $messages.append("<li>" + data.commandline + "</li>")
             }
