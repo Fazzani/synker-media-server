@@ -3,18 +3,15 @@ var FfmpegCommand = require('fluent-ffmpeg');
 class FFmpegService {
 
     constructor(io, liveServerUrl) {
-
         this.io = io;
         this.liveServerUrl = liveServerUrl;
-        this.commands = [];
+        this.commands = {};
     }
 
     StopCommand(streamId) {
         if (this.commands[streamId] !== undefined) {
-            Logger.log(`commands count before ${this.commands.length}`)
             this.commands[streamId].kill();
-            this.commands.splice(this.commands.indexOf(this.commands[streamId]), 1);
-            Logger.log(`commands count after ${this.commands.length}`)
+            this.commands[streamId] = undefined;
         }
     }
 
@@ -88,7 +85,7 @@ class FFmpegService {
             streamUrl: `${this.liveServerUrl}/live/${sId}`,
             commandline: `ffmpeg -re -i "${path}" -ar ${audio_resolution} -ab ${audio_bitrate} -metadata title="${path}" -metadata year="2010" -acodec ${audio_codec} -r 25 -f ${format} -b:v ${video_bitrate} -s ${videoSize} "${this.liveServerUrl}/live/${streamId} live=1"`,
             //command: command,
-            streamId : sId
+            streamId: sId
         };
     }
 }

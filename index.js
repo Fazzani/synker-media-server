@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-global.ffmpegService || (global.ffmpegService = new FFmpegService(io, 'rtmp://localhost:1935'));
+const ffmpegService = new FFmpegService(io, 'rtmp://localhost:1935');
 
 /**
  * Redirection to api streams
@@ -65,7 +65,7 @@ app.post("/stream/info", (req, res) => {
 
   //Logger.log(req.body.stream.url);
   console.log('body: ' + req.body);
-  let result = global.ffmpegService.InfoCommand(req.body.stream.url);
+  let result = ffmpegService.InfoCommand(req.body.stream.url);
   const child = spawn(result.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
@@ -102,7 +102,7 @@ app.post("/stream/live", (req, res) => {
   let video_bitrate = req.body.stream.video_bitrate === undefined ? '400k' : req.body.stream.video_bitrate;
   let audio_resolution = req.body.stream.audio_resolution === undefined ? '22050' : req.body.stream.audio_resolution;
 
-  let command = global.ffmpegService.LiveCommand(req.body.stream.streamId, req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
+  let command = ffmpegService.LiveCommand(req.body.stream.streamId, req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
 
   res.send(res.json(command));
 });
@@ -112,7 +112,7 @@ app.post("/stream/live", (req, res) => {
  */
 app.get("/stream/stop/:streamId", (req, res) => {
   Logger.log(`Request to stop stream : ${req.params.streamId}`);
-  global.ffmpegService.StopCommand(req.params.streamId);
+  ffmpegService.StopCommand(req.params.streamId);
   res.send(res.json({
     streamId: req.params.streamId,
     status: 'stopped'
