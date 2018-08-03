@@ -6,7 +6,8 @@ services:
 before_install:
   - chmod +x trigger-build.sh
 script: |
-  docker build -t synker/synker-media-server:latest -t synker/synker-media-server:0.0.$TRAVIS_BUILD_NUMBER --label "version=0.0.$TRAVIS_BUILD_NUMBER" -f dockerfile . && \
+  docker build -t synker/synker-media-server:latest -t synker/synker-media-server:0.0.$TRAVIS_BUILD_NUMBER \
+  --label "version=0.0.$TRAVIS_BUILD_NUMBER" --label "build_time=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" -f dockerfile . && \
   docker login -u=$DOCKER_USER -p=$DOCKER_PASS && \
   docker push "synker/synker-media-server"
   ./trigger-build.sh "Fazzani/synker-docker"
