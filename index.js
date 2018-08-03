@@ -1,17 +1,18 @@
 const {
   NodeMediaServer
-} = require('node-media-server')
-const Logger = require('./server/core/logger')
-let Page = require('./server/models/page')
-var cors = require('cors')
-let FFmpegService = require('./server/models/ffmpeg')
-var express = require('express');
-var readline = require('readline');
-var path = require('path');
-const bodyParser = require("body-parser");
+} = require('node-media-server');
 const {
   spawn
 } = require('child_process');
+
+var Logger = require('./server/core/logger'),
+  Page = require('./server/models/page'),
+  cors = require('cors'),
+  FFmpegService = require('./server/models/ffmpeg'),
+  express = require('express'),
+  readline = require('readline'),
+  path = require('path'),
+  bodyParser = require("body-parser");
 
 const port = process.env.PORT || 8000
 const port_rtmp = process.env.PORT_RTMP || 1935
@@ -41,12 +42,18 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-let ffmpegService = new FFmpegService(io, 'rtmp://localhost:1935');
+global.ffmpegService || (global.ffmpegService = new FFmpegService(io, 'rtmp://localhost:1935'));
 
+/**
+ * Redirection to api streams
+ */
 app.get("/api/streams", (req, res) => {
   res.redirect(`//localhost:${port}/api/streams`);
 });
 
+/**
+ * Redirection to api server
+ */
 app.get("/api/server", (req, res) => {
   res.redirect(`//localhost:${port}/api/server`);
 });
@@ -58,7 +65,7 @@ app.post("/stream/info", (req, res) => {
 
   //Logger.log(req.body.stream.url);
   console.log('body: ' + req.body);
-  let result = ffmpegService.InfoCommand(req.body.stream.url);
+  let result = global.ffmpegService.InfoCommand(req.body.stream.url);
   const child = spawn(result.command, {
     encoding: 'utf8',
     // stdio: 'inherit',
@@ -76,7 +83,7 @@ app.post("/stream/info", (req, res) => {
   child.on('exit', (code, signal) => {
     console.log('child process exited with ' + `code ------------${code} and signal ${signal}`);
   });
-  res.send(result);
+  res.send(res.json(result));
 });
 
 /**
@@ -95,9 +102,21 @@ app.post("/stream/live", (req, res) => {
   let video_bitrate = req.body.stream.video_bitrate === undefined ? '400k' : req.body.stream.video_bitrate;
   let audio_resolution = req.body.stream.audio_resolution === undefined ? '22050' : req.body.stream.audio_resolution;
 
-  let command = ffmpegService.LiveCommand(req.body.stream.streamId, req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
+  let command = global.ffmpegService.LiveCommand(req.body.stream.streamId, req.body.stream.url, audio_codec, 'libx264', video_size, format, audio_bitrate, video_bitrate, audio_resolution);
 
   res.send(res.json(command));
+});
+
+/**
+ * stop stream by streamId
+ */
+app.get("/stream/stop/:streamId", (req, res) => {
+  Logger.log(`Request to stop stream : ${req.params.streamId}`);
+  global.ffmpegService.StopCommand(req.params.streamId);
+  res.send(res.json({
+    streamId: req.params.streamId,
+    status: 'stopped'
+  }));
 });
 
 /**
