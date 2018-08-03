@@ -1,27 +1,50 @@
-<div class="mainContainer">
+<div class="col-md-6">
     <div>
         <div id="streamURL">
-            <div class="url-input">
-                <label for="sURL">Stream URL:</label>
-                <input id="sURL" type="text" value="http://servermedia.synker.ovh/live/testxxxx.flv" />
-                <button onclick="switch_mds()">Switch to MediaDataSource</button>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="sURL">Stream URL:</label>
+                        <input class="form-control col-12" id="sURL" type="text" value="http://servermedia.synker.ovh/live/testxxxx.flv" />
+                    </div>
+
+                    <div class="col-sm-12 text-right">
+                        <button onclick="switch_mds()" class="btn btn-outline-primary text-right">Switch to MediaDataSource</button>
+                    </div>
+                </div>
             </div>
-            <div class="options">
-                <input type="checkbox" id="isLive" onchange="saveSettings()" />
-                <label for="isLive">isLive</label>
-                <input type="checkbox" id="withCredentials" onchange="saveSettings()" />
-                <label for="withCredentials">withCredentials</label>
-                <input type="checkbox" id="hasAudio" onchange="saveSettings()" checked />
-                <label for="hasAudio">hasAudio</label>
-                <input type="checkbox" id="hasVideo" onchange="saveSettings()" checked />
-                <label for="hasVideo">hasVideo</label>
+            <div class="options row">
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="isLive" onchange="saveSettings()" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        isLive
+                    </label>
+                </div>
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="withCredentials" id="withCredentials" onchange="saveSettings()">
+                    <label class="form-check-label" for="withCredentials">
+                        withCredentials
+                    </label>
+                </div>
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="hasAudio" id="hasAudio" onchange="saveSettings()">
+                    <label class="form-check-label" for="hasAudio">
+                        hasAudio
+                    </label>
+                </div>
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="hasVideo" id="hasVideo" onchange="saveSettings()" checked>
+                    <label class="form-check-label" for="hasVideo">
+                        hasVideo
+                    </label>
+                </div>
             </div>
         </div>
         <div id="mediaSourceURL" class="hidden">
             <div class="url-input">
-                <label for="msURL">MediaDataSource JsonURL:</label>
-                <input id="msURL" type="text" value="http://127.0.0.1/flv/7182741.json" />
-                <button onclick="switch_url()">Switch to URL</button>
+                <label class="form-control" for="msURL">MediaDataSource JsonURL:</label>
+                <input class="form-control" id="msURL" type="text" value="http://127.0.0.1/flv/7182741.json" />
+                <button onclick="switch_url()" class="btn btn-outline-primary">Switch to URL</button>
             </div>
         </div>
     </div>
@@ -33,12 +56,14 @@
         </div>
     </div>
     <div class="controls">
-        <button onclick="flv_load()">Load</button>
-        <button onclick="flv_start()">Start</button>
-        <button onclick="flv_pause()">Pause</button>
-        <button onclick="flv_destroy()">Destroy</button>
-        <input style="width:100px" type="text" name="seekpoint" />
-        <button onclick="flv_seekto()">SeekTo</button>
+        <form class="form-inline">
+            <button onclick="flv_load()" class="btn btn-outline-primary">Load</button>
+            <button onclick="flv_start()" class="btn btn-outline-primary">Start</button>
+            <button onclick="flv_pause()" class="btn btn-outline-primary">Pause</button>
+            <button onclick="flv_destroy()" class="btn btn-outline-primary">Destroy</button>
+            <input style="width:100px" type="text" name="seekpoint" class="form-control" />
+            <button onclick="flv_seekto()" class="btn btn-outline-primary">SeekTo</button>
+        </form>
     </div>
-    <textarea name="logcatbox" class="logcatBox" rows="10" readonly></textarea>
+    <textarea class="form-control" name="logcatbox" class="logcatBox" rows="10" readonly></textarea>
 </div>

@@ -180,19 +180,7 @@ app.get('/about', function (req, res) {
   res.render('pages/about', new Page('About Synker Media Server'));
 });
 
-const config = {
-  rtmp: {
-    port: port_rtmp,
-    chunk_size: 60000,
-    gop_cache: true,
-    ping: 60,
-    ping_timeout: 30
-  },
-  http: {
-    port: port,
-    allow_origin: '*'
-  }
-};
+const config = require("./nms.config.json");;
 
 var nms = new NodeMediaServer(config)
 
@@ -223,7 +211,8 @@ app.use((req, res, next) => {
   // res.status(404).send('Page introuvable !');
   res.render('pages/error', {
     status: 500,
-    message: 'Page introuvable !'
+    message: 'Page introuvable !',
+    title: "Oops"
   });
 });
 
