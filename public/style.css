@@ -75,6 +75,9 @@ background-color: lightskyblue;
     -moz-border-radius-bottomleft: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
+
+    max-height: 350px;
+    overflow-y: auto;
   }
   
   .shell-body li:before {
