@@ -16,7 +16,7 @@ RUN npm install
 COPY ./server ./server
 COPY ./public ./public
 COPY ./views ./views
-COPY index.js index.js
+COPY ./src ./src
 COPY nms.config.json nms.config.json
 
-CMD ["npm", "start", "-s"]
+CMD ["npm", "run", "prod", "-s"]

@@ -7,8 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Lancer le programme",
-            "program": "${workspaceFolder}\\index.js"
+            "name": "Launch Program",
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "args": [
+                "${workspaceFolder}\\src\\app.ts"
+            ]
         }
     ]
 }
