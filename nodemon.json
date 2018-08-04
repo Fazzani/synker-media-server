@@ -1,6 +1,6 @@
 {
     "restartable": "rs",
-    "ext": "js,ts,html,json",
+    "ext": "js,ts,html,json, ejs",
     "verbose": true,
     "execMap": {
         "js": "node --harmony"

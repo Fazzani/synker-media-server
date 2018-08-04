@@ -159,3 +159,5 @@ $(() => {
         flv_load();
     });
 });
+
+//TODO: Stop video on calling api with stream ID
