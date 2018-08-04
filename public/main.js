@@ -1,5 +1,8 @@
 $(() => {
 
+    //TODO : Afficher la liste des streams
+    //TODO: Stop streams dans la mm liste affichée
+    
     $.ajax({
         type: "GET",
         url: '/api/streams',
