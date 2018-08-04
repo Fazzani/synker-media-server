@@ -1,6 +1,6 @@
 {
     "restartable": "rs",
-    "ext": "js,ts,html,json, ejs",
+    "ext": "js,ts,html,json,ejs",
     "verbose": true,
     "execMap": {
         "js": "node --harmony"
@@ -16,6 +16,6 @@
     "events": {
         "restart": "echo 'Nodemon restared event'"
     },
-    "watch": ["./src/**/*"],
-    "exec": "ts-node ./src/app.ts"
+    "watch": ["./src/**/*", "./views/**/*", "./public/**/*"],
+    "exec": "npm run build && ts-node ./src/app.ts"
 }

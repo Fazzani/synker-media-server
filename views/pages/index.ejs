@@ -14,11 +14,16 @@
     <div class="container-fluid">
         <section class="container">
             <div class="row">
+                <select class="custom-select" id="examples_select">
+                    <option selected value="-1">Select Video example...</option>
+                </select>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form" method="post" action="/stream/live" id="sendCommandStreamForm">
                         <div class="form-group col-lg-12">
                             <label for="name" class="col-sm-2 control-label">Stream Url</label>
-                            <input type="text" class="form-control form-control-sm" id="name" name="stream[url]" placeholder="Stream Url..." value=""
+                            <input type="text" class="form-control form-control-sm" id="url" name="stream[url]" placeholder="Stream Url..." value=""
                                 required>
                         </div>
                         <div class="row">

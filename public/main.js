@@ -2,7 +2,27 @@ $(() => {
 
     //TODO : Afficher la liste des streams
     //TODO: Stop streams dans la mm liste affichée
-    
+    var example_select$ = $('#examples_select');
+    var test_video_form$ = $('#sendCommandStreamForm');
+
+    example_select$.on('change', function (e) {
+        if (this.value != '-1') {
+            var url_input$ = test_video_form$.find("#url");
+            url_input$.val(this.value);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: '/examples/list',
+        success: (data) => {
+            //example_select$.empty();
+            data.forEach(element => {
+                example_select$.append(`<option value="${element.link}">${element.title}</option>`);
+            });
+        }
+    });
+
     $.ajax({
         type: "GET",
         url: '/api/streams',
@@ -40,7 +60,7 @@ $(() => {
     /**
      * live stream
      */
-    $("#sendCommandStreamForm").submit(function (e) {
+    test_video_form$.submit(function (e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);

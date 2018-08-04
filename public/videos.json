@@ -1,0 +1,45 @@
+[{
+        "title": "4k",
+        "link": "http://downloads.4ksamples.com/downloads/SES.Astra.UHD.Test.2.2160p.UHDTV.HEVC.x265-LiebeIst.mkv"
+    },
+    {
+        "title": "4k_barca",
+        "link": "http://downloads.4ksamples.com/downloads/Samsung_UHD_Soccer_Barcelona_Atletico_Madrid.ts"
+    },
+    {
+        "title": "avi",
+        "link": "http://www.quintic.com/software/sample_videos/Cricket%20Bowling%20150fps%201200.avi"
+    },
+    {
+        "title": "small_ogg_1920",
+        "link": "http://file-examples.com/wp-content/uploads/2018/04/file_example_OGG_1920_13_3mg.ogg"
+    },
+    {
+        "title": "small_mov_hd",
+        "link": "http://file-examples.com/wp-content/uploads/2018/04/file_example_MOV_1920_2_2MB.mov"
+    },
+    {
+        "title": "small_mp4_1280x720",
+        "link": "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4"
+    },
+    {
+        "title": "small_mkv_1280x720",
+        "link": "https://www.sample-videos.com/video/mkv/720/big_buck_bunny_720p_1mb.mkv"
+    },
+    {
+        "title": "small_flv_720p",
+        "link": "https://www.sample-videos.com/video/flv/720/big_buck_bunny_720p_1mb.flv"
+    },
+    {
+        "title": "mpd_720",
+        "link": "https://bitmovin-a.akamaihd.net/content/playhouse-vr/mpds/105560.mpd"
+    },
+    {
+        "title": "m3u8_dash_1920",
+        "link": "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    },
+    {
+        "title": "small_wmv_1920",
+        "link": "http://file-examples.com/wp-content/uploads/2018/04/file_example_WMV_1920_9_3MB.wmv"
+    }
+]
