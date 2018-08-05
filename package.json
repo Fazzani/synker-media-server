@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc",
     "watch-ts": "tsc -w",
-    "dev": "nodemon",
-    "start": "nodemon ./dist/app.js",
+    "start:dev": "nodemon",
+    "start": "node ./dist/app.js",
     "prod": "set NODE_ENV=production && npm run build && npm run start",
     "lint": "eslint server",
     "test": "echo \"No test in this example\" && exit 0"
