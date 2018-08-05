@@ -1,66 +1,82 @@
-body{
+body {
     background-color: #232121;
-    color:whitesmoke;
+    color: whitesmoke;
 }
+
 .selector-for-some-widget {
     box-sizing: content-box;
-  }
+}
 
-  section {
+section {
     padding: 70px 0;
     border-bottom: 1px dotted #ccc;
+    height: calc(350vh - 100vh);
 }
 
 /* So that we can see the grid */
-.grid-example  div[class^="col"] {
+
+.grid-example div[class^="col"] {
     border: 1px solid white;
     background: lightblue;
     text-align: center;
     padding-top: 8px;
     padding-bottom: 8px;
-    }
-/* Overide Jumbotron's color */
-.jumbotron {
-background-color: lightskyblue;
 }
 
+/* Overide Jumbotron's color */
+
+.jumbotron {
+    background-color: lightskyblue;
+}
 
 /********************************  SHELL STYLE *********************************/
+
+.navbar.shell {
+    padding: 0;
+}
+
 .shell-wrap {
-    box-shadow: 0 0 30px rgba(0,0,0,0.4);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-  }
-  
-  .shell-top-bar {
+    width: 100%;
+}
+
+.shell-top-bar {
     text-align: center;
     color: #525252;
     padding: 5px 0;
     margin: 0;
-    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
     font-size: 0.85em;
     border: 1px solid #CCCCCC;
     border-bottom: none;
-  
     -webkit-border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px;
     -moz-border-radius-topleft: 3px;
     -moz-border-radius-topright: 3px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-  
-    background: #f7f7f7; /* Old browsers */
-    background: -moz-linear-gradient(top,  #f7f7f7 0%, #B8B8B8 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#B8B8B8)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #f7f7f7 0%,#B8B8B8 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #f7f7f7 0%,#B8B8B8 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #f7f7f7 0%,#B8B8B8 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #f7f7f7 0%,#B8B8B8 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#B8B8B8',GradientType=0 ); /* IE6-9 */
-  }
-  
-  .shell-body {
+    background: #f7f7f7;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #f7f7f7 0%, #B8B8B8 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #B8B8B8));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #f7f7f7 0%, #B8B8B8 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #f7f7f7 0%, #B8B8B8 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #f7f7f7 0%, #B8B8B8 100%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, #f7f7f7 0%, #B8B8B8 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#B8B8B8', GradientType=0);
+    /* IE6-9 */
+}
+
+.shell-body {
     margin: 0;
     padding: 5px;
     list-style: none;
@@ -68,37 +84,38 @@ background-color: lightskyblue;
     color: #45D40C;
     font: 0.8em 'Andale Mono', Consolas, 'Courier New';
     line-height: 1.6em;
-  
     -webkit-border-bottom-right-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
     -moz-border-radius-bottomright: 3px;
     -moz-border-radius-bottomleft: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-
-    max-height: 350px;
+    max-height: 300px;
     overflow-y: auto;
-  }
-  
-  .shell-body li:before {
+}
+
+.shell-body li:before {
     content: '$';
     position: absolute;
     left: 0;
     top: 0;
-  }
-  
-  .shell-body li {
+}
+
+.shell-body li {
     word-wrap: break-word;
     position: relative;
     padding: 0 0 0 15px;
-  }
+}
+
 /********************************  PLAYER STYLE *********************************/
+
 .mainContainer {
     display: block;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
+
 @media screen and (min-width: 1152px) {
     .mainContainer {
         display: block;
@@ -120,7 +137,7 @@ background-color: lightskyblue;
     padding-bottom: 56.25%;
 }
 
-.video-container > div {
+.video-container>div {
     position: absolute;
     top: 0;
     left: 0;
@@ -172,7 +189,8 @@ background-color: lightskyblue;
     margin-right: auto;
 }
 
-.url-input , .options {
+.url-input,
+.options {
     font-size: 13px;
 }
 
