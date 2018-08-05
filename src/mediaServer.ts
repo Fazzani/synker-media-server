@@ -1,3 +1,4 @@
+/// <reference path='./typings.d.ts' />
 import express from "express";
 import { createServer, Server } from "http";
 import socketIo from "socket.io";
@@ -6,7 +7,8 @@ import * as bodyParser from "body-parser";
 import cors from "cors";
 import { Logger, LOG_TYPES } from "./core/logger";
 import FFmpegService from "./models/ffmpeg";
-const { NodeMediaServer } = require("node-media-server");
+import { NodeMediaServer } from "node-media-server";
+import JSON from "circular-json";
 
 export default class MediaServer {
   public app: express.Application;
@@ -16,7 +18,7 @@ export default class MediaServer {
 
   /* public modifiers are default ones and could be omitted. I prefer to always set them, so code  style is more consistent. */
   public port: number;
-  nms: any;
+  nms: NodeMediaServer;
   nms_port: number;
 
   constructor(port: number = 8084) {
@@ -31,6 +33,51 @@ export default class MediaServer {
     this.sockets();
     this.listen();
     this.nms.run();
+    this.nms.on("postConnect", (id, args) => {
+      this.io.send("NMS_EVENT", { event: "postConnect", id, args });
+      Logger.log("[NodeEvent on postConnect]", `id=${id} args=${JSON.stringify(args)}`);
+    });
+
+    this.nms.on("doneConnect", (id, args) => {
+      this.io.send("NMS_EVENT", { event: "doneConnect", id, args });
+      Logger.log("[NodeEvent on doneConnect]", `id=${id} args=${JSON.stringify(args)}`);
+    });
+
+    this.nms.on("prePublish", (id, StreamPath, args) => {
+      this.io.send("NMS_EVENT", { event: "prePublish", id, args });
+      Logger.log("[NodeEvent on prePublish]", `id=${id} StreamPath=${StreamPath} args=${JSON.stringify(args)}`);
+      let session = this.nms.getSession(id);
+      Logger.log(`[NodeEvent on prePlay] session : ${JSON.stringify(session)}`);
+      // session.reject();
+    });
+
+    this.nms.on("postPublish", (id, StreamPath, args) => {
+      this.io.send("NMS_EVENT", { event: "postPublish", id, args });
+      Logger.log("[NodeEvent on postPublish]", `id=${id} StreamPath=${StreamPath} args=${JSON.stringify(args)}`);
+    });
+
+    this.nms.on("donePublish", (id, StreamPath, args) => {
+      this.io.send("NMS_EVENT", { event: "donePublish", id, args });
+      Logger.log("[NodeEvent on donePublish]", `id=${id} StreamPath=${StreamPath} args=${JSON.stringify(args)}`);
+    });
+
+    this.nms.on("prePlay", (id, StreamPath, args) => {
+      this.io.send("NMS_EVENT", { event: "prePlay", id, args });
+      Logger.log("[NodeEvent on prePlay]", `id=${id} StreamPath=${StreamPath} args=${JSON.stringify(args)}`);
+      let session = this.nms.getSession(id);
+      Logger.log(`[NodeEvent on prePlay] session : ${JSON.stringify(session)}`);
+      // session.reject();
+    });
+
+    this.nms.on("postPlay", (id, StreamPath, args) => {
+      this.io.send("NMS_EVENT", { event: "postPlay", id, args });
+      Logger.log("[NodeEvent on postPlay]", `id=${id} StreamPath=${StreamPath} args=${JSON.stringify(args)}`);
+    });
+
+    this.nms.on("donePlay", (id, StreamPath, args) => {
+      this.io.send("NMS_EVENT", { event: "donePlay", id, args });
+      Logger.log("[NodeEvent on donePlay]", `id=${id} StreamPath=${StreamPath} args=${JSON.stringify(args)}`);
+    });
   }
 
   private config() {
@@ -47,7 +94,7 @@ export default class MediaServer {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     // HTTP requests logger
-    if (!process.env.NODE_ENV || (<string>(process.env.NODE_ENV)).trim() === "production") {
+    if (!process.env.NODE_ENV || (<string>process.env.NODE_ENV).trim() === "production") {
       console.log("EN MODE PRODUCTION");
       Logger.setLogType(LOG_TYPES.FFDEBUG);
     }

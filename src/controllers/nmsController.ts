@@ -3,6 +3,7 @@ import { Logger } from "../core/logger";
 import * as http from "http";
 import Controller from "../core/controller";
 import { ApiController } from "../core/decorators";
+import JSON from "circular-json";
 
 @ApiController
 export class NmsController extends Controller{

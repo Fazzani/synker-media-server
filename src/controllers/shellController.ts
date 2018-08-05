@@ -4,6 +4,7 @@ import readline = require("readline");
 import * as child from "child_process";
 import { ApiController } from "../core/decorators";
 import Controller from "../core/controller";
+import JSON from "circular-json";
 
 @ApiController
 export class ShellController extends Controller {

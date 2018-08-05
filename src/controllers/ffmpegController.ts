@@ -5,6 +5,7 @@ import readline = require("readline");
 import * as child from "child_process";
 import Controller from "../core/controller";
 import { ApiController } from "../core/decorators";
+import JSON from "circular-json";
 
 @ApiController
 export class FfmpegController extends Controller{
@@ -42,7 +43,7 @@ export class FfmpegController extends Controller{
       childSpawn.on("exit", (code, signal) => {
         console.log("child process exited with " + `code ------------${code} and signal ${signal}`);
       });
-      res.send(res.json(result));
+      res.send(JSON.stringify(result));
     });
 
     /**
@@ -72,7 +73,7 @@ export class FfmpegController extends Controller{
         audio_resolution
       );
 
-      res.send(res.json(command));
+      res.send(JSON.stringify(command));
     });
 
     /**
@@ -82,7 +83,7 @@ export class FfmpegController extends Controller{
       Logger.log(`Request to stop stream : ${req.params.streamId}`);
       this.ffmpegService.StopCommand(req.params.streamId);
       res.send(
-        res.json({
+        JSON.stringify({
           streamId: req.params.streamId,
           status: "stopped"
         })

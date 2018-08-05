@@ -2,6 +2,7 @@ import { Application, Request, Response } from "express";
 import { Logger } from "../core/logger";
 import { ApiController } from "../core/decorators";
 import Controller from "../core/controller";
+import JSON from "circular-json";
 
 @ApiController
 export class ExamplesController extends Controller {

@@ -111,6 +111,10 @@ $(() => {
    * Sockets
    */
   var socket = io();
+  socket.on('NMS_EVENT', (data) => {
+    console.log(`NMS_EVENT => ${data}`);
+  });
+
   socket.on("shellResultEvent", (data) => {
     $messages.append("<li>" + data + "</li>");
     $messages.scrollTop($messages[0].scrollHeight);

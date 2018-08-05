@@ -2,7 +2,7 @@ import { Request, Response, Application } from "express";
 import { Page } from "./models/page";
 import { Logger } from "./core/logger";
 
-export class Routes {
+export default class Routes {
   public constructor(private app: Application) {
    
     /**
@@ -21,5 +21,3 @@ export class Routes {
     });
   }
 }
-
-export default Routes;
