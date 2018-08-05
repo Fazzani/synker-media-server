@@ -18,7 +18,7 @@
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
     "outDir": "./dist",
     /* Redirect output structure to the directory. */
-    "rootDir": "./src",
+    "rootDir": ".",
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "removeComments": true,                /* Do not emit comments to output. */
     // "noEmit": true,                        /* Do not emit outputs. */
@@ -27,7 +27,7 @@
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 
     /* Strict Type-Checking Options */
-    "strict": true,
+   // "strict": true,
     /* Enable all strict type-checking options. */
     // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
     // "strictNullChecks": true,              /* Enable strict null checks. */
@@ -47,11 +47,10 @@
     // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
-    // "typeRoots": [],                       /* List of folders to include type definitions from. */
-    "typeRoots" : ["./node_modules/@types", "./typings"],
-    // "types": [],                           /* Type declaration files to be included in compilation. */
+    "typeRoots": ["./node_modules/@types"],                        /* List of folders to include type definitions from. */
+   // "types": ["./src/typings.d.ts"],                           /* Type declaration files to be included in compilation. */
     // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
 
     /* Source Map Options */
@@ -61,11 +60,13 @@
     // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
 
     /* Experimental Options */
-    // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
-    // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
+     "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+     "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
+     "lib": ["es2017", "dom"]
   },
   "include": [
     "src/**/*.ts",
+    "public/**/*.ts",
     "socket.io/socket.io.js"
   ],
   "exclude": [

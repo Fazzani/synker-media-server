@@ -26,6 +26,7 @@
     "synker"
   ],
   "dependencies": {
+    "jquery": "^3.3.1",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
     "ejs": "^2.6.1",
@@ -36,9 +37,11 @@
     "socket.io": "2.0.2"
   },
   "devDependencies": {
+    "@types/bootstrap": "^4.1.2",
     "@types/cors": "^2.8.4",
     "@types/express": "^4.16.0",
     "@types/fluent-ffmpeg": "^2.1.6",
+    "@types/jquery": "^3.3.5",
     "@types/node": "^10.5.6",
     "@types/socket.io": "^1.4.36",
     "eslint": "3.0.1",

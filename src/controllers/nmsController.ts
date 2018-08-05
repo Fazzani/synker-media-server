@@ -1,10 +1,13 @@
 import { Application, Request, Response } from "express";
 import { Logger } from "../core/logger";
 import * as http from "http";
+import Controller from "../core/controller";
+import { ApiController } from "../core/decorators";
 
-export class NmsController {
+@ApiController
+export class NmsController extends Controller{
   constructor(private app: Application, private socketServer: SocketIO.Server) {
-    this.init();
+      super();
   }
 
   private init(): void {
@@ -13,7 +16,7 @@ export class NmsController {
     /**
      * Redirection to api streams
      */
-    this.app.get("/api/streams", (req: Request, res: Response) => {
+    this.app.get(`${this.baseUrl}/streams`, (req: Request, res: Response) => {
       Logger.debug("/api/streams");
       http.get(`http://localhost:${this.app.get("nms_port")}/api/streams`, resp => {
         let data = "";
@@ -30,7 +33,7 @@ export class NmsController {
     /**
      * Redirection to api server
      */
-    this.app.get("/api/server", (req: Request, res: Response) => {
+    this.app.get(`${this.baseUrl}/server`, (req: Request, res: Response) => {
       Logger.debug("/api/server");
       http.get(`http://localhost:${this.app.get("nms_port")}/api/server`, resp => {
         let data = "";

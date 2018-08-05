@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form class="form-horizontal" role="form" method="post" action="/stream/live" id="sendCommandStreamForm">
+                    <form class="form-horizontal" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
                         <div class="form-group col-lg-12">
                             <label for="name" class="col-sm-2 control-label">Stream Url</label>
                             <input type="text" class="form-control form-control-sm" id="url" name="stream[url]" placeholder="Stream Url..." value=""
@@ -90,7 +90,7 @@
                 </div>
                 <% include ../partials/player %>
                     <div class="col-md-6">
-                        <form class="form-horizontal" role="form" method="post" action="/shell" id="sendCommandShellForm">
+                        <form class="form-horizontal" role="form" method="post" action="/api/v1/shell/run" id="sendCommandShellForm">
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">Command shell</label>
                                 <div class="col-sm-10">
