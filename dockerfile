@@ -18,5 +18,6 @@ COPY ./views ./views
 COPY ./src ./src
 COPY ./tsconfig.json ./tsconfig.json
 COPY nms.config.json nms.config.json
+RUN npm install -g typescript
 
 CMD ["npm", "run", "prod"]
