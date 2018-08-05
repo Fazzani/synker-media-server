@@ -16,6 +16,7 @@ RUN npm install
 COPY ./public ./public
 COPY ./views ./views
 COPY ./src ./src
+COPY ./tsconfig.json ./tsconfig.json
 COPY nms.config.json nms.config.json
 
 CMD ["npm", "run", "prod"]

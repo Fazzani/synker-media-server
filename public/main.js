@@ -8,6 +8,7 @@ $(() => {
   //TODO: Stop streams dans la mm liste affichée
   var example_select$ = $("#examples_select");
   var test_video_form$ = $("#sendCommandStreamForm");
+  var $messages = $("#messages").first();
 
   example_select$.on("change", function (e) {
     if ($(this).val() != "-1") {
@@ -37,7 +38,6 @@ $(() => {
     }
   });
 
-  let $messages = $("#messages");
   $('[data-toggle="tooltip"]').tooltip();
 
   $('[data-toggle="popover"]').popover();
@@ -113,5 +113,6 @@ $(() => {
   var socket = io();
   socket.on("shellResultEvent", (data) => {
     $messages.append("<li>" + data + "</li>");
+    $messages[0].scrollTop = $messages.scrollHeight;
   });
 });
