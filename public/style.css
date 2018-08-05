@@ -28,7 +28,7 @@ section {
 /* Overide Jumbotron's color */
 
 .jumbotron {
-    background-color: lightskyblue;
+    background-color: #212529;
 }
 
 /********************************  SHELL STYLE *********************************/
@@ -171,13 +171,17 @@ section {
 }
 
 .controls {
-    display: block;
+    display: flex;
     width: 100%;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
     margin-top: 8px;
     margin-bottom: 10px;
+}
+.controls *{
+    flex: auto;
+    margin-right: 5px;
 }
 
 .logcatBox {
@@ -239,4 +243,4 @@ section {
 .tab-content{
     padding: 30px 10px;
 }
-/********************************  TABS STYLE *********************************/
+/********************************  CAROUSEL STYLE *********************************/
