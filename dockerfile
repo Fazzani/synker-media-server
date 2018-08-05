@@ -13,7 +13,6 @@ HEALTHCHECK --interval=3m --timeout=1m CMD curl http://localhost:8000/api/server
 WORKDIR /opt/mediaserver
 COPY package.json package.json
 RUN npm install
-COPY ./server ./server
 COPY ./public ./public
 COPY ./views ./views
 COPY ./src ./src
