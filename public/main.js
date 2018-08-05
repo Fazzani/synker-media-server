@@ -113,6 +113,6 @@ $(() => {
   var socket = io();
   socket.on("shellResultEvent", (data) => {
     $messages.append("<li>" + data + "</li>");
-    $messages[0].scrollTop = $messages.scrollHeight;
+    $messages[0].scrollTop($messages[0].scrollHeight);
   });
 });

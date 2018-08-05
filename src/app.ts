@@ -4,7 +4,7 @@ import { ExamplesController } from "./controllers/examplesController";
 import { ShellController } from "./controllers/shellController";
 import { FfmpegController } from "./controllers/ffmpegController";
 import { NmsController } from "./controllers/nmsController";
-import MetadataArgsStorage from "./core/MetadataArgsStorage";
+import MetadataArgsStorage from "./core/metadataArgsStorage";
 
 let server = new MediaServer(8084);
 let app = server.getApp();

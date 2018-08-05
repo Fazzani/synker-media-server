@@ -1,4 +1,4 @@
 export default class MetadataArgsStorage {
-  controllers: any[] = [];
-  static Default = new MetadataArgsStorage();
+  public controllers: any[] = [];
+  public static Default: MetadataArgsStorage = new MetadataArgsStorage();
 }

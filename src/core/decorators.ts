@@ -1,5 +1,5 @@
 import Controller from "./controller";
-import MetadataArgsStorage from "./MetadataArgsStorage";
+import MetadataArgsStorage from "./metadataArgsStorage";
 
 export function ApiController<T extends { new (...args: any[]): object }>(target: T): T {
   return class Final extends target {
