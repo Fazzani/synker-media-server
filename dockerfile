@@ -18,4 +18,4 @@ COPY ./views ./views
 COPY ./src ./src
 COPY nms.config.json nms.config.json
 
-CMD ["npm", "run", "prod", "-s"]
+CMD ["npm", "run", "prod"]
