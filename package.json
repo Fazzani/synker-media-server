@@ -9,7 +9,7 @@
     "watch-ts": "tsc -w",
     "dev": "nodemon",
     "start": "node ./dist/app.js",
-    "prod": "set NODE_ENV=production && npm run build && npm run start",
+    "prod": "set NODE_ENV=production && npm run build && ls -la && ls ./dist && npm run start",
     "lint": "eslint server",
     "test": "echo \"No test in this example\" && exit 0"
   },
