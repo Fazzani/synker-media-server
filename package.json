@@ -1,9 +1,9 @@
 {
-  "name": "synker-media-server",
+  "name": "holo-media-server",
   "author": "Heni Fazzani",
   "private": true,
   "version": "0.0.1",
-  "description": "Synker Media server",
+  "description": "HOLO Media server",
   "scripts": {
     "build": "tsc",
     "watch-ts": "tsc -w",
@@ -16,15 +16,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fazzani/mediaserver.git"
+    "url": "git+https://github.com/Fazzani/synker-media-server.git"
   },
   "keywords": [
     "rtmp",
-    "flv",
+    "flvjs",
     "hls",
     "streaming",
     "server",
-    "synker"
+    "synker",
+    "nodejs"
   ],
   "dependencies": {
     "chalk": "^2.4.1",
