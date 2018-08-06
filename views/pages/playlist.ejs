@@ -61,7 +61,7 @@
                     $("#play-btn").click(function (e) {
                         e.preventDefault();
                         player.src({
-                            src: $("#url").val(),
+                            src: $("#url").val().replace('.ts', 'm3u8'),
                             type: $("#type").val()
                         });
                         player.play();
