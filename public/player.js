@@ -143,21 +143,22 @@ function showVersion() {
     var version = flvjs.version;
     document.title = document.title + " (v" + version + ")";
 }
-var logcatbox = document.getElementsByName('logcatbox')[0];
-flvjs.LoggingControl.addLogListener(function (type, str) {
-    logcatbox.value = logcatbox.value + str + '\n';
-    logcatbox.scrollTop = logcatbox.scrollHeight;
-});
 
 $(() => {
-    streamURL = document.getElementById('streamURL');
-    mediaSourceURL = document.getElementById('mediaSourceURL');
-    loadSettings();
-    showVersion();
-    $('#sURL').change(function () {
-        console.log('input changed to: ', $(this).val());
-        flv_load();
-    });
-});
+    var logcatbox = document.getElementsByName('logcatbox')[0];
+    if (logcatbox) {
+        flvjs.LoggingControl.addLogListener(function (type, str) {
+            logcatbox.value = logcatbox.value + str + '\n';
+            logcatbox.scrollTop = logcatbox.scrollHeight;
+        });
 
-//TODO: Stop video on calling api with stream ID
+        streamURL = document.getElementById('streamURL');
+        mediaSourceURL = document.getElementById('mediaSourceURL');
+        loadSettings();
+        showVersion();
+        $('#sURL').change(function () {
+            console.log('input changed to: ', $(this).val());
+            flv_load();
+        });
+    }
+});

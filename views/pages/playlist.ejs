@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+        <link rel="stylesheet" href="/libraries/video.js/dist/video-js.min.css">
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <div class="container-fluid">
+
+        <section class="container-fluid">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <input type="text" class="form-control form-control-md" id="url" name="url" placeholder="Stream Url..." value="" required>
+                </div>
+                <div class="form-group col-lg-4">
+                    <select class="custom-select" id="type">
+                        <option selected value="video/mp4">video/mp4</option>
+                        <option selected value="application/x-mpegURL">application/x-mpegURL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-2 text-right">
+                        <button class="btn btn-md btn-outline-info" id="play-btn">
+                            <i class="fa fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <video id="playlist-video-js" class="video-js vjs-default-skin vjs-16-9" width="640" height="300" controls>
+            </video>
+        </section>
+        <div class="navbar fixed-bottom navbar-dark bg-dark shell">
+            <div class="shell-wrap">
+                <p class="shell-top-bar">Output</p>
+                <ul class="shell-body" id="messages">
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <% include ../partials/footer %>
+                <script src="/libraries/video.js/dist/video.min.js"></script>
+                <script src="/libraries/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
+                <script src="/libraries/videojs-contrib-dash/dist/videojs-dash.min.js"></script> -->
+                <script src="/libraries/videojs-contrib-media-sources/dist/videojs-contrib-media-sources.min.js"></script>
+                <script src="/libraries/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.min.js"></script>
+                <script src="/libraries/videojs-flash/dist/videojs-flash.min.js"></script>
+                <script src="/libraries/videojs-overlay/dist/videojs-overlay.min.js"></script>
+                <script src="/libraries/videojs-playlist-ui/dist/videojs-playlist-ui.min.js"></script>
+                <script>
+                    var player = videojs('playlist-video-js', {
+                        fluid: true
+                    });
+
+                    $("#play-btn").click(function (e) {
+                        e.preventDefault();
+                        player.src({
+                            src: $("#url").val(),
+                            type: $("#type").val()
+                        });
+                        player.play();
+                    });
+                </script>
+        </footer>
+</body>
+
+</html>

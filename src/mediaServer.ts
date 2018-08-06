@@ -84,12 +84,14 @@ export default class MediaServer {
     this.app.set("view engine", "ejs");
 
     this.app.use(cors());
+    
     this.app.use(express.static(path.join(__dirname, "../public")));
     this.app.use(express.static(path.join(__dirname, "../views")));
     // this.app.use(express.static(path.join(__dirname,'../node_modules/bootstrap/dist/')));
     this.app.use(express.static(path.join(__dirname, "../node_modules/flv.js/dist/")));
+    this.app.use('/libraries', express.static('node_modules'));
     this.app.use(express.static(path.join(__dirname, "/")));
-    this.app.use("/favicon.ico", express.static(path.join(__dirname, "../public/images/favicon.ico")));
+    // this.app.use("/favicon.ico", express.static(path.join(__dirname, "../public/images/favicon.ico")));
     // set bodyParser middleware to get form data
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
