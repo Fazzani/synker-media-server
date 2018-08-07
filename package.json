@@ -28,6 +28,7 @@
     "nodejs"
   ],
   "dependencies": {
+    "@silvermine/videojs-chromecast": "^1.0.1",
     "@videojs/http-streaming": "^1.2.1",
     "chalk": "^2.4.1",
     "circular-json": "^0.5.5",
@@ -41,12 +42,14 @@
     "node-media-server": "^1.4.3",
     "socket.io": "2.0.2",
     "video.js": "^7.1.0",
+    "videojs-chromecast": "^2.0.8",
     "videojs-contrib-dash": "^2.10.0",
     "videojs-contrib-hls": "^5.14.1",
     "videojs-contrib-quality-levels": "^2.0.6",
     "videojs-flash": "^2.1.1",
     "videojs-hlsjs": "^1.4.8",
     "videojs-overlay": "^2.1.2",
+    "videojs-playlist": "^4.2.3",
     "videojs-playlist-ui": "^3.4.2"
   },
   "devDependencies": {

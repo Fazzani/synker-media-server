@@ -33,8 +33,18 @@
                     </div>
                 </div>
             </div>
-            <video id="playlist-video-js" class="video-js vjs-default-skin vjs-16-9" width="640" height="300" controls>
-            </video>
+            <!-- The playlist menu will be built automatically in here: -->
+            <div class="row main-preview-player">
+                <video id="player" class="video-js vjs-fluid vjs-big-play-centered vjs-default-skin" controls preload="auto" crossorigin="anonymous">
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+                        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                    </p>
+                </video>
+
+                <div class="playlist-container  preview-player-dimensions vjs-fluid">
+                    <div class="vjs-playlist"></div>
+                </div>
+            </div>
         </section>
         <div class="navbar fixed-bottom navbar-dark bg-dark shell">
             <div class="shell-wrap">
@@ -45,16 +55,36 @@
         </div>
         <footer>
             <% include ../partials/footer %>
+                <script src="http://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+                <!-- add chromecast sdk -->
                 <script src="/libraries/video.js/dist/video.min.js"></script>
                 <script src="/libraries/@videojs/http-streaming/dist/videojs-http-streaming.min.js"></script>
-                <script src="/libraries/videojs-contrib-media-sources/dist/videojs-contrib-media-sources.min.js"></script>
+                <!-- <script src="/libraries/videojs-contrib-media-sources/dist/videojs-contrib-media-sources.min.js"></script> -->
                 <script src="/libraries/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.min.js"></script>
                 <script src="/libraries/videojs-flash/dist/videojs-flash.min.js"></script>
                 <script src="/libraries/videojs-overlay/dist/videojs-overlay.min.js"></script>
+                <script src="/libraries/videojs-playlist/dist/videojs-playlist.min.js"></script>
                 <script src="/libraries/videojs-playlist-ui/dist/videojs-playlist-ui.min.js"></script>
+                <script src="/libraries/@silvermine/videojs-chromecast/dist/silvermine-videojs-chromecast.min.js"></script>
+                <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
                 <script>
-                    var player = videojs('playlist-video-js', {
-                        fluid: true
+                    var player = videojs('player', {
+                        fluid: true,
+                        techOrder: ['chromecast', 'html5'], // You may have more Tech, such as Flash or HLS
+                        chromecast: {
+                            requestTitleFn: function (source) { // Not required
+                                return "test title";
+                            },
+                            requestSubtitleFn: function (source) { // Not required
+                                return "subtitle test";
+                            }
+                        },
+                        plugins: {
+                            chromecast: {
+                                appId: '3550951F',
+                                addButtonToControlBar: true, // Defaults to true
+                            }
+                        }
                     });
 
                     $("#play-btn").click(function (e) {
@@ -63,8 +93,142 @@
                             src: $("#url").val().replace('.ts', '.m3u8'),
                             type: $("#type").val()
                         });
-                        player.play();
+
+                        //player.play();
                     });
+
+                    player.playlist([{
+                            name: 'Disney\'s Oceans 1',
+                            description: 'Explore the depths of our planet\'s oceans. ' +
+                                'Experience the stories that connect their world to ours. ' +
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+                                'sed do eiusmod tempor incididunt ut labore et dolore magna ' +
+                                'aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ' +
+                                'laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure ' +
+                                'dolor in reprehenderit in voluptate velit esse cillum dolore eu ' +
+                                'fugiat nulla pariatur. Excepteur sint occaecat cupidatat non ' +
+                                'proident, sunt in culpa qui officia deserunt mollit anim id est ' +
+                                'laborum.',
+                            duration: 45,
+                            sources: [{
+                                    src: 'http://vjs.zencdn.net/v/oceans.mp4',
+                                    type: 'video/mp4'
+                                },
+                                {
+                                    src: 'http://vjs.zencdn.net/v/oceans.webm',
+                                    type: 'video/webm'
+                                },
+                            ],
+                            // you can use <picture> syntax to display responsive images
+                            thumbnail: [{
+                                    srcset: 'images/play-video.png',
+                                    type: 'image/png',
+                                    media: '(min-width: 400px;)'
+                                },
+                                {
+                                    src: 'images/play-video.png'
+                                }
+                            ]
+                        },
+                        {
+                            name: 'Disney\'s Oceans 2',
+                            description: 'Explore the depths of our planet\'s oceans. ' +
+                                'Experience the stories that connect their world to ours. ' +
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+                                'sed do eiusmod tempor incididunt ut labore et dolore magna ' +
+                                'aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ' +
+                                'laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure ' +
+                                'dolor in reprehenderit in voluptate velit esse cillum dolore eu ' +
+                                'fugiat nulla pariatur. Excepteur sint occaecat cupidatat non ' +
+                                'proident, sunt in culpa qui officia deserunt mollit anim id est ' +
+                                'laborum.',
+                            duration: 45,
+                            sources: [{
+                                    src: 'http://vjs.zencdn.net/v/oceans.mp4?2',
+                                    type: 'video/mp4'
+                                },
+                                {
+                                    src: 'http://vjs.zencdn.net/v/oceans.webm?2',
+                                    type: 'video/webm'
+                                },
+                            ],
+                            // you can use <picture> syntax to display responsive images
+                            thumbnail: [{
+                                    srcset: 'images/play-video.png',
+                                    type: 'image/png',
+                                    media: '(min-width: 400px;)'
+                                },
+                                {
+                                    src: 'images/play-video.png'
+                                }
+                            ]
+                        },
+                        {
+                            name: 'Disney\'s Oceans 3',
+                            description: 'Explore the depths of our planet\'s oceans. ' +
+                                'Experience the stories that connect their world to ours. ' +
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+                                'sed do eiusmod tempor incididunt ut labore et dolore magna ' +
+                                'aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ' +
+                                'laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure ' +
+                                'dolor in reprehenderit in voluptate velit esse cillum dolore eu ' +
+                                'fugiat nulla pariatur. Excepteur sint occaecat cupidatat non ' +
+                                'proident, sunt in culpa qui officia deserunt mollit anim id est ' +
+                                'laborum.',
+                            duration: 45,
+                            sources: [{
+                                    src: 'http://vjs.zencdn.net/v/oceans.mp4?3',
+                                    type: 'video/mp4'
+                                },
+                                {
+                                    src: 'http://vjs.zencdn.net/v/oceans.webm?3',
+                                    type: 'video/webm'
+                                },
+                            ],
+                            // you can use <picture> syntax to display responsive images
+                            thumbnail: [{
+                                    srcset: 'images/play-video.png',
+                                    type: 'image/png',
+                                    media: '(min-width: 400px;)'
+                                },
+                                {
+                                    src: 'images/play-video.png'
+                                }
+                            ]
+                        }, {
+                            name: 'Sintel (No Thumbnail)',
+                            description: 'The film follows a girl named Sintel who is searching for a baby dragon she calls Scales.',
+                            sources: [{
+                                    src: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
+                                    type: 'video/mp4'
+                                },
+                                {
+                                    src: 'http://media.w3.org/2010/05/sintel/trailer.webm',
+                                    type: 'video/webm'
+                                },
+                                {
+                                    src: 'http://media.w3.org/2010/05/sintel/trailer.ogv',
+                                    type: 'video/ogg'
+                                }
+                            ],
+                            thumbnail: false
+                        },
+                        // This is a really underspecified video to demonstrate the
+                        // behavior when optional parameters are missing. You'll get better
+                        // results with more video metadata!
+                        {
+                            name: 'Invalid Source',
+                            sources: [{
+                                src: 'Invalid'
+                            }]
+                        }
+                    ]);
+                    // Initialize the playlist-ui plugin with no option (i.e. the defaults).
+                    player.playlistUi({
+                        playOnSelect: true
+                    });
+                    // Play through the playlist automatically.
+                    player.playlist.autoadvance(0);
                 </script>
         </footer>
 </body>
