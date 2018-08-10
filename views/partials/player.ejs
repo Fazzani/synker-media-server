@@ -9,7 +9,7 @@
                     </div>
 
                     <div class="col-sm-12 text-right">
-                        <button onclick="switch_mds()" class="btn btn-outline-primary text-right">Switch to MediaDataSource</button>
+                        <button onclick="switch_mds()" class="btn btn-outline-primary text-right btn-sm">Switch to MediaDataSource</button>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <div class="url-input">
                 <label class="form-control" for="msURL">MediaDataSource JsonURL:</label>
                 <input class="form-control" id="msURL" type="text" value="http://127.0.0.1/flv/7182741.json" />
-                <button onclick="switch_url()" class="btn btn-outline-primary">Switch to URL</button>
+                <button onclick="switch_url()" class="btn btn-outline-primary btn-sm">Switch to URL</button>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
             </video>
         </div>
     </div>
-    <div class="controls">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
         <button onclick="flv_load()" class="btn btn-outline-primary">Load</button>
         <button onclick="flv_start()" class="btn btn-outline-primary">Start</button>
         <button onclick="flv_pause()" class="btn btn-outline-primary">Pause</button>

@@ -50,27 +50,21 @@ export class FfmpegController extends Controller{
      * play stream
      */
     this.app.post(`${this.baseUrl}/live`, (req: Request, res: Response) => {
-      //TODO: Déduplication des demandes
+      //TODO: Déduplication des demandes with the same streamId
 
       Logger.log(req.body.stream.url);
       Logger.log(req.body.stream.streamId);
-      let audio_codec = req.body.stream.audio_codec || "copy";
-      let video_size = req.body.stream.video_size || "640x480";
-      let format = req.body.stream.format || "flv";
-      let audio_bitrate = req.body.stream.audio_bitrate || "56k";
-      let video_bitrate = req.body.stream.video_bitrate || "400k";
-      let audio_resolution = req.body.stream.audio_resolution || "22050";
 
       let command = this.ffmpegService.LiveCommand(
         req.body.stream.streamId,
         req.body.stream.url,
-        audio_codec,
-        "libx264",
-        video_size,
-        format,
-        audio_bitrate,
-        video_bitrate,
-        audio_resolution
+        req.body.stream.audio_codec || "copy",
+        req.body.stream.video_codec || "libx264",
+        req.body.stream.video_size || "640x480",
+        req.body.stream.format || "flv",
+        req.body.stream.audio_bitrate || "56k",
+        req.body.stream.video_bitrate || "400k",
+        req.body.stream.audio_resolution || "22050"
       );
 
       res.send(JSON.stringify(command));

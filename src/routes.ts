@@ -26,5 +26,33 @@ export default class Routes {
     this.app.get("/playlist", function(req: Request, res: Response) {
       res.render("pages/playlist", new Page("Playlist-HOLO"));
     });
+
+    /**
+     * Command line
+     */
+    this.app.get("/commandline", function(req: Request, res: Response) {
+      res.render("pages/cli", new Page("Shell-HOLO"));
+    });
+
+     /**
+     * Login
+     */
+    this.app.get("/login", function(req: Request, res: Response) {
+      res.render("pages/login", new Page("Login-HOLO"));
+    });
+
+    /**
+     * Register
+     */
+    this.app.get("/register", function(req: Request, res: Response) {
+      res.render("pages/register", new Page("Register-HOLO"));
+    });
+
+    /**
+     * Stats
+     */
+    this.app.get("/stats", function(req: Request, res: Response) {
+      res.render("pages/stats", new Page("Stats-HOLO"));
+    });
   }
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+  <body>
+    <div class="login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>Register</h1>
+                  </div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form class="text-left form-validate">
+                    <div class="form-group-material">
+                      <input id="register-username" type="text" name="registerUsername" required data-msg="Please enter your username" class="input-material">
+                      <label for="register-username" class="label-material">Username</label>
+                    </div>
+                    <div class="form-group-material">
+                      <input id="register-email" type="email" name="registerEmail" required data-msg="Please enter a valid email address" class="input-material">
+                      <label for="register-email" class="label-material">Email Address      </label>
+                    </div>
+                    <div class="form-group-material">
+                      <input id="register-password" type="password" name="registerPassword" required data-msg="Please enter your password" class="input-material">
+                      <label for="register-password" class="label-material">Password        </label>
+                    </div>
+                    <div class="form-group terms-conditions text-center">
+                      <input id="register-agree" name="registerAgree" type="checkbox" required value="1" data-msg="Your agreement is required" class="checkbox-template">
+                      <label for="register-agree">I agree with the terms and policy</label>
+                    </div>
+                    <div class="form-group text-center">
+                      <input id="register" type="submit" value="Register" class="btn btn-primary">
+                    </div>
+                  </form><small>Already have an account? </small><a href="/login" class="signup">Login</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights text-center">
+          <p class="no-margin-bottom">2018 &copy; Synker.</p>
+        </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+<script src="main.js"></script>
+<script src="js/charts-home.js"></script>
+<script src="js/front.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<!-- JavaScript files-->
+<script src="vendor/jquery.cookie/jquery.cookie.js">
+</script>
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+  </body>
+</html>

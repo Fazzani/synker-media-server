@@ -11,139 +11,99 @@
         <% include ../partials/header %>
     </header>
 
-    <div class="container-fluid">
-        <% include ../partials/onlinevideos %>
-
-            <section class="container-fluid">
-                <ul class="nav nav-tabs nav-fill" id="tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                            <i class="fa fa-home"></i>Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="shell-tab" data-toggle="tab" href="#shell" role="tab" aria-controls="shell" aria-selected="false">
-                            <i class="fa fa-terminal"></i>Shell</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <select class="custom-select" id="examples_select">
-                                    <option selected value="-1">Select Video example...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <form class="form-horizontal" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
-                                    <div class="form-group col-lg-12">
-                                        <label for="name" class="col-sm-2 control-label">Stream Url</label>
-                                        <input type="text" class="form-control form-control-sm" id="url" name="stream[url]" placeholder="Stream Url..." value=""
-                                            required>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="name" class="col-sm-2 control-label">Audio codec</label>
-                                                <input type="text" class="form-control form-control-sm" id="audio_codec" name="stream[audio_codec]" placeholder="Audio codec..."
-                                                    value="copy" required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="name" class="col-sm-2 control-label">Video size</label>
-                                                <input type="text" class="form-control form-control-sm" id="video_size" name="stream[video_size]" placeholder="Video size..."
-                                                    value="640x?" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="name" class="col-sm-2 control-label">Format</label>
-                                                <input type="text" class="form-control form-control-sm" id="format" name="stream[format]" placeholder="format..." value="flv"
-                                                    required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-
-                                            <div class="form-group">
-                                                <label for="name" class="col-sm-2 control-label">Audio bitrate</label>
-                                                <input type="text" class="form-control form-control-sm" id="audio_bitrate" name="stream[audio_bitrate]" placeholder="Audio bitrate..."
-                                                    value="128k" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="name" class="col-sm-2 control-label">Video bitrate</label>
-                                                <input type="text" class="form-control form-control-sm" id="video_bitrate" name="stream[video_bitrate]" placeholder="Video bitrate..."
-                                                    value="400k" required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group ">
-                                                <label for="name" class="col-sm-2 control-label">Audio resolution</label>
-                                                <input type="text" class="form-control form-control-sm" id="audio_resolution" name="stream[audio_resolution]" placeholder="Audio resolution..."
-                                                    value="22050" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12 text-right">
-                                            <input id="submit" name="submit" type="submit" value="Stream" class="btn btn-outline-primary">
-                                            <input id="info-stream-btn" name="submit" type="button" value="Video Info" class="btn btn-outline-info">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <! Will be used to display an alert to the user>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <% include ../partials/player %>
+    <div class="d-flex align-items-stretch">
+        <% include ../partials/sidebar %>
+            <div class="page-content">
+                <div class="page-header">
+                    <div class="container-fluid">
+                        <h2 class="h5 no-margin-bottom">Home</h2>
+                    </div>
+                </div>
+                <section class="no-padding-top no-padding-bottom">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <select class="custom-select" id="examples_select">
+                                <option selected value="-1">Select Video example...</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="shell" role="tabpanel" aria-labelledby="shell-tab">
-                        <div class="col-md-12">
-                            <form class="form-horizontal" role="form" method="post" action="/api/v1/shell/run" id="sendCommandShellForm">
-                                <div class="form-group">
-                                    <label for="name" class="col-sm-2 control-label">Command shell</label>
-                                    <div class="col-md-12">
-                                        <textarea class="form-control" id="command" name="shell[command]" rows="10" placeholder="Command..." value="" required></textarea>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form class="form-horizontal" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
+                                <div class="form-group col-lg-12">
+                                    <label for="name" class="col-sm-2 control-label">Stream Url</label>
+                                    <input type="text" class="form-control form-control-sm" id="url" name="stream[url]" placeholder="Stream Url..." value=""
+                                        required>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Audio codec</label>
+                                            <input type="text" class="form-control form-control-sm" id="audio_codec" name="stream[audio_codec]" placeholder="Audio codec..."
+                                                value="copy" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Video size</label>
+                                            <input type="text" class="form-control form-control-sm" id="video_size" name="stream[video_size]" placeholder="Video size..."
+                                                value="640x?" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Format</label>
+                                            <input type="text" class="form-control form-control-sm" id="format" name="stream[format]" placeholder="format..." value="flv"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Audio bitrate</label>
+                                            <input type="text" class="form-control form-control-sm" id="audio_bitrate" name="stream[audio_bitrate]" placeholder="Audio bitrate..."
+                                                value="128k" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Video bitrate</label>
+                                            <input type="text" class="form-control form-control-sm" id="video_bitrate" name="stream[video_bitrate]" placeholder="Video bitrate..."
+                                                value="400k" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="name" class="col-sm-2 control-label">Audio resolution</label>
+                                            <input type="text" class="form-control form-control-sm" id="audio_resolution" name="stream[audio_resolution]" placeholder="Audio resolution..."
+                                                value="22050" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-12 col-sm-offset-2 text-right">
-                                        <input id="submit" name="submit" type="submit" value="Execute" class="btn btn-outline-primary">
+                                    <div class="col-sm-12 text-right">
+                                        <input id="submit" name="submit" type="submit" value="Stream" class="btn btn-outline-primary btn-sm">
+                                        <input id="info-stream-btn" name="submit" type="button" value="Video Info" class="btn btn-outline-info btn-sm">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-10 col-sm-offset-2">
+                                    <div class="col-sm-12">
                                         <! Will be used to display an alert to the user>
                                     </div>
                                 </div>
                             </form>
                         </div>
+                        <% include ../partials/player %>
                     </div>
-
-                </div>
-            </section>
-            <div class="navbar fixed-bottom navbar-dark bg-dark shell">
-                <div class="shell-wrap">
-                    <p class="shell-top-bar">Output</p>
-                    <ul class="shell-body" id="messages">
-                    </ul>
-                </div>
+                    <% include ../partials/shellOutput %>
+                </section>
             </div>
-            <footer>
-                <% include ../partials/footer %>
-            </footer>
-            <script src="flv.min.js"></script>
-            <script src="player.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-</body>
-</html>
+
+            <% include ../partials/footer %>
+                <script src="flv.min.js"></script>
+                <script src="player.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
