@@ -29,58 +29,58 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <form class="form-horizontal" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
+                            <form class="form-horizontal form-validate" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
                                 <div class="form-group col-lg-12">
-                                    <label for="name" class="col-sm-2 control-label">Stream Url</label>
-                                    <input type="text" class="form-control form-control-sm" id="url" name="stream[url]" placeholder="Stream Url..." value=""
-                                        required>
+                                    <input type="text" class="input-material" id="url" name="stream[url]" value=""
+                                        required data-msg="Please enter the stream url">
+                                    <label for="name" class="label-material">Stream Url</label>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-2 control-label">Audio codec</label>
-                                            <input type="text" class="form-control form-control-sm" id="audio_codec" name="stream[audio_codec]" placeholder="Audio codec..."
+                                            <input type="text" class="input-material" id="audio_codec" name="stream[audio_codec]"
                                                 value="copy" required>
+                                            <label for="name" class="label-material">Audio codec</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-2 control-label">Video size</label>
-                                            <input type="text" class="form-control form-control-sm" id="video_size" name="stream[video_size]" placeholder="Video size..."
+                                            <input type="text" class="input-material" id="video_size" name="stream[video_size]"
                                                 value="640x?" required>
+                                            <label for="name" class="label-material">Video size</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-2 control-label">Format</label>
-                                            <input type="text" class="form-control form-control-sm" id="format" name="stream[format]" placeholder="format..." value="flv"
+                                            <input type="text" class="input-material" id="format" name="stream[format]" value="flv"
                                                 required>
+                                            <label for="name" class="label-material">Format</label>
                                         </div>
                                     </div>
                                     <div class="col">
 
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-2 control-label">Audio bitrate</label>
-                                            <input type="text" class="form-control form-control-sm" id="audio_bitrate" name="stream[audio_bitrate]" placeholder="Audio bitrate..."
+                                            <input type="text" class="input-material" id="audio_bitrate" name="stream[audio_bitrate]" 
                                                 value="128k" required>
+                                            <label for="name" class="label-material">Audio bitrate</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-2 control-label">Video bitrate</label>
-                                            <input type="text" class="form-control form-control-sm" id="video_bitrate" name="stream[video_bitrate]" placeholder="Video bitrate..."
+                                            <input type="text" class="input-material" id="video_bitrate" name="stream[video_bitrate]" 
                                                 value="400k" required>
+                                            <label for="name" class="label-material">Video bitrate</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group ">
-                                            <label for="name" class="col-sm-2 control-label">Audio resolution</label>
-                                            <input type="text" class="form-control form-control-sm" id="audio_resolution" name="stream[audio_resolution]" placeholder="Audio resolution..."
+                                            <input type="text" class="input-material" id="audio_resolution" name="stream[audio_resolution]" 
                                                 value="22050" required>
+                                            <label for="name" class="label-material">Audio resolution</label>
                                         </div>
                                     </div>
                                 </div>

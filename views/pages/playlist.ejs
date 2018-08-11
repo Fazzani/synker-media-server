@@ -4,6 +4,8 @@
 <head>
     <% include ../partials/head %>
         <link rel="stylesheet" href="/libraries/video.js/dist/video-js.min.css">
+        <link href="/libraries/videojs-playlist-ui/dist/videojs-playlist-ui.vertical.css" rel="stylesheet">
+        <link href="/libraries/@silvermine/videojs-chromecast/dist/silvermine-videojs-chromecast.css" rel="stylesheet">
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example">
@@ -20,19 +22,20 @@
                         <h2 class="h5 no-margin-bottom">Playlist</h2>
                     </div>
                 </div>
-                <section class="no-padding-top no-padding-bottom">
+                <section class="no-padding-top no-padding-bottom container-fluid">
                     <div class="row">
-                        <div class="form-group col-lg-8">
-                            <input type="text" class="form-control form-control-md" id="url" name="url" placeholder="Stream Url..." value="" required>
+                        <div class="form-group col-lg-8 col-12">
+                            <input type="text" class="input-material" id="url" name="url" data-msg="Please enter the stream url" value="" required>
+                            <label for="url" class="label-material">Stream Url...</label>
                         </div>
-                        <div class="form-group col-lg-3">
+                        <div class="form-group col-lg-3 col-9">
                             <select class="custom-select" id="type">
                                 <option selected value="video/mp4">video/mp4</option>
                                 <option selected value="application/x-mpegURL">application/x-mpegURL</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-1 text-right">
+                        <div class="form-group col-lg-1 col-3">
+                            <div class="text-right">
                                 <button class="btn btn-md btn-outline-info" id="play-btn">
                                     <i class="fa fa-play"></i>
                                 </button>
