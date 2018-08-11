@@ -1,0 +1,26 @@
+<!-- Page Header-->
+<div class="page-header no-margin-bottom">
+    <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">
+            <%= Page.title %>
+        </h2>
+    </div>
+</div>
+<!-- Breadcrumb-->
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <% if( Page.breadcrumb.length==1){%>
+            <h2 class="h5 no-margin-bottom">Home</h2>
+            <%} else {%>
+                <% for(var i=0; i < Page.breadcrumb.length; i++){ 
+                    if(i==0) { %>
+                    <li class="breadcrumb-item">
+                        <a href="/">Home</a>
+                    </li>
+                    <% } else { %>
+                        <li class="breadcrumb-item active">
+                            <%= Page.breadcrumb[i] %>
+                        </li>
+                        <% }}} %>
+    </ul>
+</div>

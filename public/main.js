@@ -119,4 +119,11 @@ $(() => {
     $messages.append("<li>" + data + "</li>");
     $messages.scrollTop($messages[0].scrollHeight);
   });
+
+  /** 
+   * Main active menu
+  */
+ $('#mainMenu').filter(function( index ) {
+  return $(this).attr("href") === "";
+}).addClass()
 });

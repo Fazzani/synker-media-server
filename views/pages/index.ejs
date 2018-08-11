@@ -1,106 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <% include ../partials/head %>
+    <%- include('../partials/head', Page) %>
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example">
 
     <header>
-        <% include ../partials/header %>
+        <%- include('../partials/header', Page) %>
     </header>
 
     <div class="d-flex align-items-stretch">
-        <% include ../partials/sidebar %>
+        <%- include('../partials/sidebar', Page) %>
             <div class="page-content">
-                <div class="page-header">
-                    <div class="container-fluid">
-                        <h2 class="h5 no-margin-bottom">Home</h2>
-                    </div>
-                </div>
-                <section class="no-padding-top no-padding-bottom">
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <select class="custom-select" id="examples_select">
-                                <option selected value="-1">Select Video example...</option>
-                            </select>
+                <%- include('../partials/breadcrumbs', Page) %>
+                    <section class="no-padding-top no-padding-bottom">
+                        <div class="row block">
+                            <div class="form-group col-md-12">
+                                <select class="custom-select" id="examples_select">
+                                    <option selected value="-1">Select Video example...</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form class="form-horizontal form-validate" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
-                                <div class="form-group col-lg-12">
-                                    <input type="text" class="input-material" id="url" name="stream[url]" value=""
-                                        required data-msg="Please enter the stream url">
-                                    <label for="name" class="label-material">Stream Url</label>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input type="text" class="input-material" id="audio_codec" name="stream[audio_codec]"
-                                                value="copy" required>
-                                            <label for="name" class="label-material">Audio codec</label>
+                        <div class="row block">
+                            <div class="col-md-6">
+                                <form class="form-horizontal form-validate" role="form" method="post" action="/api/v1/ffmpeg/live" id="sendCommandStreamForm">
+                                    <div class="form-group col-lg-12">
+                                        <input type="text" class="input-material" id="url" name="stream[url]" value="" required data-msg="Please enter the stream url">
+                                        <label for="name" class="label-material">Stream Url</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="input-material" id="audio_codec" name="stream[audio_codec]" value="copy" required>
+                                                <label for="name" class="label-material">Audio codec</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="input-material" id="video_size" name="stream[video_size]" value="640x?" required>
+                                                <label for="name" class="label-material">Video size</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input type="text" class="input-material" id="video_size" name="stream[video_size]"
-                                                value="640x?" required>
-                                            <label for="name" class="label-material">Video size</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="input-material" id="format" name="stream[format]" value="flv" required>
+                                                <label for="name" class="label-material">Format</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input type="text" class="input-material" id="format" name="stream[format]" value="flv"
-                                                required>
-                                            <label for="name" class="label-material">Format</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
+                                        <div class="col">
 
-                                        <div class="form-group">
-                                            <input type="text" class="input-material" id="audio_bitrate" name="stream[audio_bitrate]" 
-                                                value="128k" required>
-                                            <label for="name" class="label-material">Audio bitrate</label>
+                                            <div class="form-group">
+                                                <input type="text" class="input-material" id="audio_bitrate" name="stream[audio_bitrate]" value="128k" required>
+                                                <label for="name" class="label-material">Audio bitrate</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input type="text" class="input-material" id="video_bitrate" name="stream[video_bitrate]" 
-                                                value="400k" required>
-                                            <label for="name" class="label-material">Video bitrate</label>
+                                    <div class="row ">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="input-material" id="video_bitrate" name="stream[video_bitrate]" value="400k" required>
+                                                <label for="name" class="label-material">Video bitrate</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group ">
+                                                <input type="text" class="input-material" id="audio_resolution" name="stream[audio_resolution]" value="22050" required>
+                                                <label for="name" class="label-material">Audio resolution</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="form-group ">
-                                            <input type="text" class="input-material" id="audio_resolution" name="stream[audio_resolution]" 
-                                                value="22050" required>
-                                            <label for="name" class="label-material">Audio resolution</label>
+                                    <div class="form-group">
+                                        <div class="col-sm-12 text-right">
+                                            <input id="submit" name="submit" type="submit" value="Stream" class="btn btn-outline-primary btn-sm">
+                                            <input id="info-stream-btn" name="submit" type="button" value="Video Info" class="btn btn-outline-info btn-sm">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12 text-right">
-                                        <input id="submit" name="submit" type="submit" value="Stream" class="btn btn-outline-primary btn-sm">
-                                        <input id="info-stream-btn" name="submit" type="button" value="Video Info" class="btn btn-outline-info btn-sm">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <! Will be used to display an alert to the user>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <! Will be used to display an alert to the user>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
+                            <% include ../partials/player %>
                         </div>
-                        <% include ../partials/player %>
-                    </div>
-                    <% include ../partials/shellOutput %>
-                </section>
+                        <% include ../partials/shellOutput %>
+                    </section>
             </div>
 
             <% include ../partials/footer %>

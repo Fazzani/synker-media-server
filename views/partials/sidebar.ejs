@@ -12,28 +12,34 @@
   </div>
   <!-- Sidebar Navidation Menus-->
   <span class="heading">Main</span>
-  <ul class="list-unstyled">
-    <li class="active">
-      <a href="/">
-        <i class="icon-home"></i>Home </a>
+  <ul class="list-unstyled" id="mainMenu">
+    <li <% if (Page.currentPage==='home' ) { %> class="active"
+      <% } %> >
+        <a href="/">
+          <i class="fa fa-home"></i>Home </a>
+    </li>
+    <li <% if (Page.currentPage==='playlist' ) { %> class="active"
+      <% } %> >
+        <a href="/playlist">
+          <i class="fa fa-list-ul"></i>Playlist </a>
+    </li>
+    <li <% if (Page.currentPage==='about' ) { %> class="active" <% } %> >
+        <a href="/about">
+          <i class="fa fa-id-card"></i>About </a>
     </li>
     <li>
-      <a href="/playlist">
-        <i class="icon-grid"></i>Playlist </a>
-    </li>
-    <li>
-      <a href="/about">
-        <i class="icon-settings"></i>About </a>
-    </li>
-    <li>
-      <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse">
-        <i class="icon-windows"></i>Tools </a>
-      <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-        <li>
-          <a href="/commandline">Command Line</a>
+      <a href="#exampledropdownDropdown"  aria-expanded="true" data-toggle="collapse">
+        <i class="fa fa-wrench"></i>Tools </a>
+      <ul id="exampledropdownDropdown" <% if (Page.currentPage==='commandline'|| Page.currentPage==='player' ){ %> class="list-unstyled collapse show" <% } else { %> class="list-unstyled collapse" <% } %> >
+        <li <% if (Page.currentPage==='commandline' ) { %>class="active"
+          <% } %> >
+            <a href="/commandline">
+              <i class="fa fa-terminal"></i>Command Line</a>
         </li>
-        <li>
-          <a href="/player">Web Player</a>
+        <li <% if (Page.currentPage==='player' ) { %>class="active"
+          <% } %> >
+            <a href="/player">
+              <i class="fa fa-file-video"></i>Web Player</a>
         </li>
       </ul>
     </li>
@@ -44,7 +50,8 @@
   </ul>
   <span class="heading">Extras</span>
   <ul class="list-unstyled">
-    <li>
+      <li <% if (Page.currentPage==='stats' ) { %>class="active"
+          <% } %> >
       <a href="/stats">
         <i class="fa fa-bar-chart"></i>Statistic </a>
     </li>
