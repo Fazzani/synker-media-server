@@ -5,12 +5,14 @@ import { ShellController } from "./controllers/shellController";
 import { FfmpegController } from "./controllers/ffmpegController";
 import { NmsController } from "./controllers/nmsController";
 import MetadataArgsStorage from "./core/metadataArgsStorage";
+import { PlaylistController } from "./controllers/playlistController";
 
 let server = new MediaServer(8084);
 let app = server.getApp();
 
 new Routes(app);
 new ExamplesController(app, server.getSockerIoServer());
+new PlaylistController(app, server.getSockerIoServer());
 new NmsController(app, server.getSockerIoServer());
 new FfmpegController(app, server.getSockerIoServer(), server.getFFmpegService());
 new ShellController(app, server.getSockerIoServer());
